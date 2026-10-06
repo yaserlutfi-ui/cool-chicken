@@ -9,76 +9,29 @@
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col md:flex-row overflow-x-hidden font-sans">
 
-    <!-- SOL PANEL: Masa ve Sipariş Özeti -->
+    <!-- SOL PANEL: Masa, Sipariş Özeti ve Butonlar -->
     <div class="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col shadow-lg shrink-0">
-        <div class="bg-indigo-600 text-white p-4 font-bold text-lg flex justify-between items-center shadow-md">
+        <div class="bg-indigo-600 text-white p-3 font-bold text-base flex justify-between items-center shadow-md">
             <span>Sipariş Özeti</span>
-            <span id="item-count" class="bg-indigo-800 text-xs px-2.5 py-1 rounded-full">0 Ürün</span>
-        </div>
-
-        <!-- MASA SEÇİM ALANI (Bölümlere Ayrılmış) -->
-        <div class="bg-indigo-50 border-b border-indigo-100 p-3 space-y-1">
-            <span class="text-xs font-bold text-indigo-900 uppercase block">Masa Seçimi:</span>
-            <select id="table-select" class="w-full bg-white border border-indigo-300 text-indigo-900 font-bold text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-indigo-600 shadow-sm">
-                <option value="">-- Bölüm ve Masa Seçiniz --</option>
-                <optgroup label="Giriş">
-                    <option value="Giriş 1">Giriş 1</option>
-                    <option value="Giriş 2">Giriş 2</option>
-                    <option value="Giriş 3">Giriş 3</option>
-                    <option value="Giriş 4">Giriş 4</option>
-                    <option value="Giriş 5">Giriş 5</option>
-                    <option value="Giriş 6">Giriş 6</option>
-                    <option value="Giriş 7">Giriş 7</option>
-                    <option value="Giriş 8">Giriş 8</option>
-                    <option value="Giriş 9">Giriş 9</option>
-                    <option value="Giriş 10">Giriş 10</option>
-                </optgroup>
-                <optgroup label="Bahçe">
-                    <option value="Bahçe 1">Bahçe 1</option>
-                    <option value="Bahçe 2">Bahçe 2</option>
-                    <option value="Bahçe 3">Bahçe 3</option>
-                    <option value="Bahçe 4">Bahçe 4</option>
-                    <option value="Bahçe 5">Bahçe 5</option>
-                    <option value="Bahçe 6">Bahçe 6</option>
-                    <option value="Bahçe 7">Bahçe 7</option>
-                    <option value="Bahçe 8">Bahçe 8</option>
-                    <option value="Bahçe 9">Bahçe 9</option>
-                    <option value="Bahçe 10">Bahçe 10</option>
-                </optgroup>
-                <optgroup label="Salon">
-                    <option value="Salon 1">Salon 1</option>
-                    <option value="Salon 2">Salon 2</option>
-                    <option value="Salon 3">Salon 3</option>
-                    <option value="Salon 4">Salon 4</option>
-                    <option value="Salon 5">Salon 5</option>
-                    <option value="Salon 6">Salon 6</option>
-                    <option value="Salon 7">Salon 7</option>
-                </optgroup>
-                <optgroup label="Oyun Salonu">
-                    <option value="Oyun Salonu 1">Oyun Salonu 1</option>
-                    <option value="Oyun Salonu 2">Oyun Salonu 2</option>
-                    <option value="Oyun Salonu 3">Oyun Salonu 3</option>
-                    <option value="Oyun Salonu 4">Oyun Salonu 4</option>
-                    <option value="Oyun Salonu 5">Oyun Salonu 5</option>
-                    <option value="Oyun Salonu 6">Oyun Salonu 6</option>
-                    <option value="Oyun Salonu 7">Oyun Salonu 7</option>
-                    <option value="Oyun Salonu 8">Oyun Salonu 8</option>
-                    <option value="Oyun Salonu 9">Oyun Salonu 9</option>
-                    <option value="Oyun Salonu 10">Oyun Salonu 10</option>
-                    <option value="Oyun Salonu 11">Oyun Salonu 11</option>
-                    <option value="Oyun Salonu 12">Oyun Salonu 12</option>
-                    <option value="Oyun Salonu 13">Oyun Salonu 13</option>
-                    <option value="Oyun Salonu 14">Oyun Salonu 14</option>
-                    <option value="Oyun Salonu 15">Oyun Salonu 15</option>
-                    <option value="Oyun Salonu 16">Oyun Salonu 16</option>
-                    <option value="Oyun Salonu 17">Oyun Salonu 17</option>
-                    <option value="Oyun Salonu 18">Oyun Salonu 18</option>
-                    <option value="Oyun Salonu 19">Oyun Salonu 19</option>
-                    <option value="Oyun Salonu 20">Oyun Salonu 20</option>
-                    <option value="Oyun Salonu 21">Oyun Salonu 21</option>
-                    <option value="Oyun Salonu 22">Oyun Salonu 22</option>
-                </optgroup>
-            </select>
+            <div class="flex items-center space-x-2">
+                <!-- Masa Seçimi Ürün Sayısının Yanına Taşındı -->
+                <select id="table-select" class="bg-white text-indigo-900 font-bold text-xs rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-300">
+                    <option value="">Masa Seç</option>
+                    <optgroup label="Giriş">
+                        <option value="Giriş 1">Giriş 1</option><option value="Giriş 2">Giriş 2</option><option value="Giriş 3">Giriş 3</option><option value="Giriş 4">Giriş 4</option><option value="Giriş 5">Giriş 5</option><option value="Giriş 6">Giriş 6</option><option value="Giriş 7">Giriş 7</option><option value="Giriş 8">Giriş 8</option><option value="Giriş 9">Giriş 9</option><option value="Giriş 10">Giriş 10</option>
+                    </optgroup>
+                    <optgroup label="Bahçe">
+                        <option value="Bahçe 1">Bahçe 1</option><option value="Bahçe 2">Bahçe 2</option><option value="Bahçe 3">Bahçe 3</option><option value="Bahçe 4">Bahçe 4</option><option value="Bahçe 5">Bahçe 5</option><option value="Bahçe 6">Bahçe 6</option><option value="Bahçe 7">Bahçe 7</option><option value="Bahçe 8">Bahçe 8</option><option value="Bahçe 9">Bahçe 9</option><option value="Bahçe 10">Bahçe 10</option>
+                    </optgroup>
+                    <optgroup label="Salon">
+                        <option value="Salon 1">Salon 1</option><option value="Salon 2">Salon 2</option><option value="Salon 3">Salon 3</option><option value="Salon 4">Salon 4</option><option value="Salon 5">Salon 5</option><option value="Salon 6">Salon 6</option><option value="Salon 7">Salon 7</option>
+                    </optgroup>
+                    <optgroup label="Oyun Salonu">
+                        <option value="Oyun Salonu 1">Oyun Salonu 1</option><option value="Oyun Salonu 2">Oyun Salonu 2</option><option value="Oyun Salonu 3">Oyun Salonu 3</option><option value="Oyun Salonu 4">Oyun Salonu 4</option><option value="Oyun Salonu 5">Oyun Salonu 5</option><option value="Oyun Salonu 6">Oyun Salonu 6</option><option value="Oyun Salonu 7">Oyun Salonu 7</option><option value="Oyun Salonu 8">Oyun Salonu 8</option><option value="Oyun Salonu 9">Oyun Salonu 9</option><option value="Oyun Salonu 10">Oyun Salonu 10</option><option value="Oyun Salonu 11">Oyun Salonu 11</option><option value="Oyun Salonu 12">Oyun Salonu 12</option><option value="Oyun Salonu 13">Oyun Salonu 13</option><option value="Oyun Salonu 14">Oyun Salonu 14</option><option value="Oyun Salonu 15">Oyun Salonu 15</option><option value="Oyun Salonu 16">Oyun Salonu 16</option><option value="Oyun Salonu 17">Oyun Salonu 17</option><option value="Oyun Salonu 18">Oyun Salonu 18</option><option value="Oyun Salonu 19">Oyun Salonu 19</option><option value="Oyun Salonu 20">Oyun Salonu 20</option><option value="Oyun Salonu 21">Oyun Salonu 21</option><option value="Oyun Salonu 22">Oyun Salonu 22</option>
+                    </optgroup>
+                </select>
+                <span id="item-count" class="bg-indigo-800 text-xs px-2 py-0.5 rounded-full">0 Ürün</span>
+            </div>
         </div>
         
         <!-- Seçilen Ürünler Listesi -->
@@ -533,11 +486,11 @@
         }
 
         function changeQuantity(id, delta) {
-            const item = cart.find(i => i.id === id);
+            const item = cart.find(i => i.id == id);
             if (item) {
                 item.quantity += delta;
                 if (item.quantity <= 0) {
-                    cart = cart.filter(i => i.id !== id);
+                    cart = cart.filter(i => i.id != id);
                 }
             }
             updateCartUI();
