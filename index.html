@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Chicken - Garson Sipariş Terminali</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 h-screen flex flex-col md:flex-row overflow-hidden font-sans">
+
+    <!-- SOL PANEL: Sipariş Özeti ve Sepet -->
+    <div class="w-full md:w-1/3 bg-white border-r border-gray-200 flex flex-col h-1/2 md:h-full shadow-lg z-10">
+        <div class="bg-indigo-600 text-white p-4 font-bold text-lg flex justify-between items-center shadow-md">
+            <span>Sipariş Özeti</span>
+            <span id="item-count" class="bg-indigo-800 text-xs px-2.5 py-1 rounded-full">0 Ürün</span>
+        </div>
+        
+        <!-- Seçilen Ürünler Listesi -->
+        <div id="cart-list" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-gray-100">
+            <p class="text-gray-400 text-center py-10">Henüz ürün seçilmedi.</p>
+        </div>
+
+        <!-- Alt Toplam ve Gönder Butonu -->
+        <div class="p-4 border-t border-gray-200 bg-gray-50 shadow-inner">
+            <div class="flex justify-between items-center mb-3 text-lg font-bold">
+                <span class="text-gray-700">Toplam:</span>
+                <span id="cart-total" class="text-indigo-600">0.00 TL</span>
+            </div>
+            <button onclick="sendOrder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-xl shadow-lg transition duration-200 active:scale-95">
+                SİPARİŞİ MUTFAĞA GÖNDER
+            </button>
+        </div>
+    </div>
+
+    <!-- SAĞ / ORTA PANEL: Üst Bar, Kategoriler ve Ürünler -->
+    <div class="flex-1 flex flex-col h-1/2 md:h-full bg-gray-50">
+        
+        <!-- ÜST KISIM: Arama/Başlık ve Hızlı Ekle Butonu -->
+        <div class="bg-white border-b border-gray-200 px-4 py-3 flex justify-between items-center shrink-0 shadow-sm">
+            <div class="font-bold text-gray-800 text-lg">Cool Chicken - Menü Terminali</div>
+            <button onclick="openQuickAddModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-sm shadow transition duration-200 flex items-center space-x-1 active:scale-95">
+                <span>⚡ Hızlı Ekle / Not</span>
+            </button>
+        </div>
+
+        <!-- Kategori Sekmeleri -->
+        <div class="flex bg-white border-b border-gray-200 p-3 overflow-x-auto space-x-2 shrink-0 shadow-sm">
+            <button onclick="filterCategory('all', this)" class="cat-btn px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold whitespace-nowrap shadow-sm transition">Tümü</button>
+            <button onclick="filterCategory('gunebaslarken', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Güne Başlarken</button>
+            <button onclick="filterCategory('atistirmalik', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Atıştırmalık</button>
+            <button onclick="filterCategory('little', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Little Little</button>
+            <button onclick="filterCategory('kizarmistavuk', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Kızarmış Tavuk</button>
+            <button onclick="filterCategory('burger', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Burger</button>
+            <button onclick="filterCategory('wrap', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Wrap</button>
+            <button onclick="filterCategory('anayemek', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Ana Yemek</button>
+            <button onclick="filterCategory('salata', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Salata</button>
+            <button onclick="filterCategory('makarna', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Makarna</button>
+            <button onclick="filterCategory('pizza', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Pizza</button>
+            <button onclick="filterCategory('bira', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Bira</button>
+            <button onclick="filterCategory('kokteyl', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Kokteyl</button>
+            <button onclick="filterCategory('tatli', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Tatlı</button>
+            <button onclick="filterCategory('sicakicecek', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Sıcak İçecek</button>
+            <button onclick="filterCategory('sogukicecek', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Soğuk İçecek</button>
+            <button onclick="filterCategory('sarap', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Şarap</button>
+            <button onclick="filterCategory('alkolluicecek', this)" class="cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition">Alkollü İçecek</button>
+        </div>
+
+        <!-- Ürünler Izgarası (Grid) -->
+        <div id="product-grid" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <!-- Dinamik yüklenecek -->
+        </div>
+    </div>
+
+    <!-- HIZLI EKLE MODAL (PENCERE) -->
+    <div id="quick-add-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
+            <h3 class="text-lg font-bold text-gray-800 mb-2">Hızlı Ürün / Not Ekle</h3>
+            <p class="text-xs text-gray-500 mb-4">Menüde olmayan bir istek veya not yazabilirsiniz. Fiyatı otomatik 0 TL olarak eklenecektir.</p>
+            <input type="text" id="quick-input" placeholder="Örn: Acısız olsun / Ekstra Limon" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-600 mb-4">
+            <div class="flex space-x-2">
+                <button onclick="closeQuickAddModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 rounded-xl transition">İptal</button>
+                <button onclick="addQuickItem()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition">Ekle</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Menü Verileri ve Mantığı -->
+    <script>
+        const products = [
+            // --- GÜNE BAŞLARKEN ---
+            { id: 101, name: "Günün Çorbası", price: 220, category: "gunebaslarken", desc: "Domates, kremalı tavuk, yayla, tavuk suyu, ezogelin veya mercimek." },
+            { id: 102, name: "Grande Kahvaltı (2 Kişilik)", price: 750, category: "gunebaslarken", desc: "Zengin peynir çeşitleri, kuruyemiş, yeşillikler, söğüş (Kişi başı fiyat)." },
+            { id: 103, name: "Omlet Tabağı", price: 320, category: "gunebaslarken", desc: "Sade, peynirli veya karışık omlet, peynir, zeytin, yeşillik." },
+            { id: 104, name: "Kahvaltı Tabağı", price: 550, category: "gunebaslarken", desc: "Edirne yardımcı, İzmir tulumu, kaşar, reçel, bal, yeşillikler." },
+            { id: 105, name: "Sahanda Göz Yumurta", price: 200, category: "gunebaslarken", desc: "Sahanda göz yumurta." },
+            { id: 106, name: "Sahanda Sucuklu Yumurta", price: 320, category: "gunebaslarken", desc: "Sahanda sucuklu yumurta." },
+            { id: 107, name: "Menemen", price: 300, category: "gunebaslarken", desc: "Geleneksel menemen." },
+            { id: 108, name: "Karışık Tost", price: 375, category: "gunebaslarken", desc: "Kaşık patates ve dip sos eşliğinde." },
+            { id: 109, name: "Kaşarlı Tost", price: 325, category: "gunebaslarken", desc: "Kaşık patates ve dip sos eşliğinde." },
+            { id: 110, name: "Beyaz Peynirli Tost", price: 325, category: "gunebaslarken", desc: "Domates, kekik, kaşık patates ve dip sos ile." },
+
+            // --- ATIŞTIRMALIK ---
+            { id: 201, name: "Tuzlu Fıstık", price: 225, category: "atistirmalik", desc: "Atıştırmalık çerez." },
+            { id: 202, name: "Karışık Çerez", price: 280, category: "atistirmalik", desc: "Seçme karışık kuruyemiş." },
+            { id: 203, name: "Turşu Tabağı", price: 200, category: "atistirmalik", desc: "Erik, bamya ve kornişon turşu karışımı." },
+            { id: 204, name: "Klasik Patates", price: 320, category: "atistirmalik", desc: "Parmak patates kızartması." },
+            { id: 205, name: "Kaşık Patates", price: 320, category: "atistirmalik", desc: "Kaşık kesim patates." },
+            { id: 206, name: "Elma Dilim Patates", price: 340, category: "atistirmalik", desc: "Çıtır elma dilim patates." },
+            { id: 207, name: "Baharatlı Patates", price: 350, category: "atistirmalik", desc: "Cajun baharatlı patates seçenekleriyle." },
+            { id: 208, name: "Fırın Baby", price: 350, category: "atistirmalik", desc: "Sarımsaklı, rozmarin ve cajun baharatlı elma dilim." },
+            { id: 209, name: "Cheddar Patates", price: 380, category: "atistirmalik", desc: "Cheddar soslu parmak patates." },
+            { id: 210, name: "Cheddar Cool", price: 385, category: "atistirmalik", desc: "Cheddar, karamelize soğan ve burger soslu patates." },
+            { id: 211, name: "Cheddar Tavuklu", price: 440, category: "atistirmalik", desc: "Cheddar soslu, çıtır tavuk parçalı patates." },
+            { id: 212, name: "Cheddar Bolonez", price: 455, category: "atistirmalik", desc: "Cheddar soslu, dana kıymalı bolonez soslu patates." },
+            { id: 213, name: "Cheddar Pastırma", price: 480, category: "atistirmalik", desc: "Cheddar soslu, pastırmalı patates." },
+
+            // --- LITTLE LITTLE ---
+            { id: 301, name: "Nachos", price: 430, category: "little", desc: "Cheddar sos, renkli biberler, zeytin, mısır, domates, jalapeno." },
+            { id: 302, name: "Quesedilla", price: 440, category: "little", desc: "Tortilla, kaşar, soslu tavuk, mantar, biber; jalapeno ve patates ile." },
+            { id: 303, name: "Sıcak Sepeti", price: 850, category: "little", desc: "Hot shots, kemiksiz finger, şiş peynir, Cool böreği çeşitleriyle." },
+            { id: 304, name: "Sosis Sepeti", price: 825, category: "little", desc: "Izgara sosis, şiş peynir, paçanga, Cool böreği, soğan halkası." },
+            { id: 305, name: "Yitos Sepeti", price: 920, category: "little", desc: "BBQ fingers, hot shots, şiş peynir ve börek çeşitleri ile." },
+            { id: 306, name: "Big-Yitos Sepeti", price: 1720, category: "little", desc: "Kalabalık gruplar için zenginleştirilmiş büyük yitos sepeti." },
+            { id: 307, name: "Soğan Halkası", price: 240, category: "little", desc: "10 adet soğan halkası, ranch sos ile." },
+            { id: 308, name: "Porsiyon Kızarmış Mantar", price: 280, category: "little", desc: "8 adet kızarmış mantar, ranch sos ile." },
+            { id: 309, name: "Şiş Peynir Sepeti", price: 400, category: "little", desc: "6 şiş kızarmış peynir ve soslar ile." },
+            { id: 310, name: "Börek Sepeti", price: 330, category: "little", desc: "Kıymalı biberli Cool böreği, paçanga böreği, dip sos ile." },
+
+            // --- KIZARMIŞ TAVUK ---
+            { id: 401, name: "Crispy Sepeti", price: 530, category: "kizarmistavuk", desc: "10 kemiksiz tavuk, mantar, soğan halkası, kaşık patates." },
+            { id: 402, name: "Finger&Wings Sepeti", price: 560, category: "kizarmistavuk", desc: "5 kemiksiz tavuk, 5 kanat, mantar, soğan halkası, patates." },
+            { id: 403, name: "Hot Wings Sepeti", price: 530, category: "kizarmistavuk", desc: "10 kanat, mantar, soğan halkası, kaşık patates." },
+            { id: 404, name: "Mix Sepeti", price: 560, category: "kizarmistavuk", desc: "3 kemiksiz, 3 kanat, 1 but, mantar, soğan halkası, patates." },
+            { id: 405, name: "Baget Sepeti", price: 560, category: "kizarmistavuk", desc: "4 but, mantar, soğan halkası, kaşık patates." },
+            { id: 406, name: "Bbq Fingers", price: 560, category: "kizarmistavuk", desc: "8 barbekü soslu kemiksiz tavuk, mantar, soğan halkası, patates." },
+            { id: 407, name: "Bbq Wings", price: 560, category: "kizarmistavuk", desc: "8 barbekü soslu kanat, mantar, soğan halkası, patates." },
+            { id: 408, name: "Buffalo Fingers", price: 560, category: "kizarmistavuk", desc: "8 acılı kemiksiz tavuk, mantar, soğan halkası, patates." },
+            { id: 409, name: "Buffalo Wings", price: 560, category: "kizarmistavuk", desc: "8 acılı kanat, mantar, soğan halkası, patates." },
+            { id: 410, name: "Sweet Chili Fingers", price: 560, category: "kizarmistavuk", desc: "8 sweet chili soslu kemiksiz tavuk, yan ürünlerle." },
+            { id: 411, name: "Sweet Chili Wings", price: 560, category: "kizarmistavuk", desc: "8 sweet chili soslu kanat, yan ürünlerle." },
+            { id: 412, name: "Klasik Sepet (2 Kişilik)", price: 1050, category: "kizarmistavuk", desc: "2 but, 6 kanat, 12 kemiksiz tavuk, mantar, soğan halkası, patates." },
+            { id: 413, name: "Derin Sepeti (2-3 Kişilik)", price: 1250, category: "kizarmistavuk", desc: "12 kemiksiz, 12 kanat, mantar, soğan halkası, patates." },
+            { id: 414, name: "Bandır Sepeti (2-3 Kişilik)", price: 1150, category: "kizarmistavuk", desc: "20 kemiksiz finger, soğan halkası, mantar ve patates." },
+            { id: 415, name: "Dipsiz Sepeti (3-4 Kişilik)", price: 1620, category: "kizarmistavuk", desc: "36 kemiksiz tavuk ve zengin yan ürünler." },
+            { id: 416, name: "Party Sepeti (3-4 Kişilik)", price: 1560, category: "kizarmistavuk", desc: "But/kanat seçenekleriyle kalabalık parti sepeti." },
+            { id: 417, name: "Family Sepeti (3-4 Kişilik)", price: 1900, category: "kizarmistavuk", desc: "4 but, 10 kanat, 20 kemiksiz tavuk, dev boy yan ürünler." },
+
+            // --- BURGER ---
+            { id: 501, name: "Izgara Tavuklu Burger", price: 475, category: "burger", desc: "Piliç pirzola, burger sos, cheddar, domates, marul, patates." },
+            { id: 502, name: "Fillet Burger", price: 475, category: "burger", desc: "Çıtır pane piliç bonfile, burger sos, cheddar, turşu, marul, patates." },
+            { id: 503, name: "BBQ Burger", price: 475, category: "burger", desc: "Izgara piliç köfte, BBQ sos, marul, cheddar, domates, çıtır soğan." },
+            { id: 504, name: "Hunger Burger", price: 625, category: "burger", desc: "FilletBurger, 3 kanat, 6 kemiksiz tavuk ve kaşık patates ile." },
+            { id: 505, name: "Team Burger", price: 680, category: "burger", desc: "2 mini Fillet Burger, 6 kemiksiz ve patates ile." },
+            { id: 506, name: "Hamburger", price: 540, category: "burger", desc: "145 gr dana köfte, karamelize soğan, turşu, marul, patates." },
+            { id: 507, name: "Cheeseburger", price: 550, category: "burger", desc: "145 gr dana köfte, cheddar, karamelize soğan, turşu, marul, patates." },
+            { id: 508, name: "Smoke Burger", price: 580, category: "burger", desc: "145 gr dana köfte, BBQ sos, jambon, cheddar, karamelize soğan." },
+            { id: 509, name: "Smash Burger", price: 555, category: "burger", desc: "İki adet 70gr dana köfte, duble cheddar, karamelize soğan." },
+
+            // --- WRAP ---
+            { id: 601, name: "Izgara Tavuklu Wrap", price: 475, category: "wrap", desc: "Soya soslu tavuk dilimleri, sebzeler, kaşar peyniri ve patates." },
+            { id: 602, name: "Çıtır Wrap", price: 465, category: "wrap", desc: "Çıtır pane tavuk parçaları, göbek marul, mayonez, patates." },
+            { id: 603, name: "Mexican Wrap", price: 485, category: "wrap", desc: "Acılı ızgara tavuk, renkli biberler, mantar, Meksika fasulyesi." },
+            { id: 604, name: "Beef n Cheddar Wrap", price: 555, category: "wrap", desc: "Izgara dana bonfile dilimleri, sote mantar, cheddar sos." },
+            { id: 605, name: "Steak Wrap", price: 555, category: "wrap", desc: "Izgara dana bonfile, sebzeler, mantar ve kaşar peyniri." },
+
+            // --- ANA YEMEK ---
+            { id: 701, name: "Schnitzel", price: 540, category: "anayemek", desc: "250 gr piliç bonfile, pesto soslu makarna ve buharda sebzeler." },
+            { id: 702, name: "Parmesan Soslu Tavuk", price: 570, category: "anayemek", desc: "Soslu paneli piliç bonfile, pesto makarnalı." },
+            { id: 703, name: "Tavuklu Mantarlı Krep", price: 570, category: "anayemek", desc: "Kaşarlı krep içinde sotelenmiş piliç bonfile ve mantar." },
+            { id: 704, name: "Peynir Soslu Tavuk", price: 550, category: "anayemek", desc: "Izgara piliç bonfile, dört peynirli sos ile." },
+            { id: 705, name: "Teriyaki Soslu Piliç Bonfile", price: 580, category: "anayemek", desc: "Sotelenmiş piliç bonfile, ızgara ananas, arpacık soğan." },
+            { id: 706, name: "Köri Soslu Tavuk", price: 580, category: "anayemek", desc: "Sotelenmiş piliç bonfile, renkli biberler, mantar, köri sos." },
+            { id: 707, name: "Meksika Soslu Tavuk", price: 600, category: "anayemek", desc: "Acı soslu piliç bonfile, Meksika fasulyesi, mozzarella." },
+            { id: 708, name: "Fajita", price: 600, category: "anayemek", desc: "Soya soslu tavuk dilimleri, renkli biberler, tortilla ekmeği." },
+            { id: 709, name: "Izgara Piliç Pirzola", price: 540, category: "anayemek", desc: "200 gr marine kemiksiz piliç pirzola." },
+            { id: 710, name: "Izgara Piliç Bonfile", price: 540, category: "anayemek", desc: "200 gr tavuk göğsü, makarna ve sebzeler ile." },
+            { id: 711, name: "Izgara Şiş", price: 570, category: "anayemek", desc: "Şişte ızgara piliç bonfile, biber ve mantar ile." },
+            { id: 712, name: "Izgara Kanat", price: 550, category: "anayemek", desc: "Şişte marine ızgara kanat." },
+            { id: 713, name: "Izgara Chili Soslu Kanat", price: 580, category: "anayemek", desc: "Şişte acılı ızgara kanat, makarna ve sebzelerle." },
+            { id: 714, name: "Izgara Köfte", price: 620, category: "anayemek", desc: "180 gr dana köfte, salata ve kaşık patates ile." },
+            { id: 715, name: "Izgara Antrikot", price: 760, category: "anayemek", desc: "250 gr dana antrikot, pesto makarna, sebzeler." },
+
+            // --- SALATA ---
+            { id: 801, name: "Izgara Tavuklu Salata", price: 450, category: "salata", desc: "Akdeniz yeşillikleri, badem, yaban mersini, ızgara tavuk." },
+            { id: 802, name: "Çıtır Tavuklu Salata", price: 440, category: "salata", desc: "Akdeniz yeşillikleri, mısır, yaban mersini, çıtır tavuk parçaları." },
+            { id: 803, name: "Sezar Salata", price: 450, category: "salata", desc: "Göbek marul, parmesan, ızgara tavuk, kruton, sezar sos." },
+            { id: 804, name: "Roka Salatası", price: 450, category: "salata", desc: "Roka, cherry, ceviz, sarımsak, parmesan, kurutulmuş domates." },
+            { id: 805, name: "Izgara Hellimli Salata", price: 420, category: "salata", desc: "Akdeniz yeşillikleri, roka, mısır, ızgara hellim dilimleri." },
+            { id: 806, name: "Steak Salata", price: 550, category: "salata", desc: "Akdeniz yeşillikleri, kurutulmuş domates, dana biftek dilimleri." },
+            { id: 807, name: "Izgara Köfteli Salata", price: 550, category: "salata", desc: "180gr dana köfte, roka, cherry, ceviz, parmesan." },
+
+            // --- MAKARNA ---
+            { id: 901, name: "Spaghetti Napoliten", price: 430, category: "makarna", desc: "Özel domates sos ile." },
+            { id: 902, name: "Spaghetti Bolonez", price: 500, category: "makarna", desc: "Dana kıymalı bolonez sos ile." },
+            { id: 903, name: "Chicken Pesto", price: 470, category: "makarna", desc: "Izgara tavuk dilimleri, fesleğen sos, parmesan." },
+            { id: 904, name: "Chicken Alfredo", price: 480, category: "makarna", desc: "Izgara tavuk, mantar, krema ve parmesan." },
+            { id: 905, name: "Beef Alfredo", price: 570, category: "makarna", desc: "Dana biftek dilimleri, mantar, krema ve parmesan." },
+            { id: 906, name: "Penne Vegi", price: 420, category: "makarna", desc: "Sebzeler, brokoli-karnabahar ve domates sos ile." },
+            { id: 907, name: "Penne Arrabbiata", price: 420, category: "makarna", desc: "Acılı domates sos, zeytin ve parmesan." },
+
+            // --- PİZZA ---
+            { id: 1001, name: "Margarita Pizza", price: 520, category: "pizza", desc: "Domates sos ve mozzarella." },
+            { id: 1002, name: "Vegi Pizza", price: 570, category: "pizza", desc: "Domates sos, mozzarella, sebzeler, brokoli, karnabahar." },
+            { id: 1003, name: "Egeli Pizza", price: 590, category: "pizza", desc: "Domates sos, mozzarella, beyaz peynir, mantar, zeytin." },
+            { id: 1004, name: "Buffalo Pizza", price: 620, category: "pizza", desc: "Acılı sos, mozzarella, acılı tavuk parçaları, jalapeno." },
+            { id: 1005, name: "Truvalı Pizza", price: 640, category: "pizza", desc: "Pesto sos, mozzarella, tavuk köfte, zeytin, mantar." },
+            { id: 1006, name: "BBQ Pizza", price: 650, category: "pizza", desc: "Domates sos, mozzarella, barbekü tavuk, jambon, sosis." },
+            { id: 1007, name: "4 Peynirli Pizza", price: 650, category: "pizza", desc: "Pesto sos, mozzarella, cheddar, beyaz peynir, parmesan." },
+            { id: 1008, name: "Hawaii Pizza", price: 650, category: "pizza", desc: "Domates sos, mozzarella, jambon, ananas, mantar." },
+            { id: 1009, name: "Acılı Pepperoni Pizza", price: 720, category: "pizza", desc: "Acılı sos, mozzarella, dana sucuk, hellim, jalapeno." },
+            { id: 1010, name: "Allaturca Pizza", price: 720, category: "pizza", desc: "Domates sos, mozzarella, dana pastırma, biber, zeytin." },
+            { id: 1011, name: "Allaturca Sucuk Pizza", price: 720, category: "pizza", desc: "Domates sos, mozzarella, dana sucuk ve sebzeler." },
+            { id: 1012, name: "Steak Pizza", price: 720, category: "pizza", desc: "Domates sos, mozzarella, dana bonfile dilimleri, mantar." },
+            { id: 1013, name: "Kokoreç Pizza", price: 650, category: "pizza", desc: "Domates sos, mozzarella, kokoreç, acı turşu biber, kimyon." },
+
+            // --- BİRA ---
+            { id: 1101, name: "Weihenstephan (30 Cl Fıçı)", price: 285, category: "bira", desc: "Fıçı bira." },
+            { id: 1102, name: "Weihenstephan (50 Cl Fıçı)", price: 350, category: "bira", desc: "Fıçı bira." },
+            { id: 1103, name: "Blanc (25 Cl Fıçı)", price: 220, category: "bira", desc: "Fıçı bira." },
+            { id: 1104, name: "Blanc (50 Cl Fıçı)", price: 310, category: "bira", desc: "Fıçı bira." },
+            { id: 1105, name: "Carlsberg (30 Cl Fıçı)", price: 230, category: "bira", desc: "Fıçı bira." },
+            { id: 1106, name: "Carlsberg (50 Cl Fıçı)", price: 285, category: "bira", desc: "Fıçı bira." },
+            { id: 1107, name: "Tuborg Gold (30 Cl Fıçı)", price: 220, category: "bira", desc: "Fıçı bira." },
+            { id: 1108, name: "Tuborg Gold (50 Cl Fıçı)", price: 275, category: "bira", desc: "Fıçı bira." },
+            { id: 1109, name: "Tuborg Şişe", price: 275, category: "bira", desc: "Şişe seçenekleriyle." },
+            { id: 1110, name: "Carlsberg Şişe", price: 285, category: "bira", desc: "Şişe seçenekleriyle." },
+            { id: 1111, name: "Frederik Serisi", price: 310, category: "bira", desc: "Özel seri şişe bira." },
+            { id: 1112, name: "İthal Biralar", price: 275, category: "bira", desc: "İthal çeşitler." },
+
+            // --- KOKTEYL ---
+            { id: 1201, name: "Long Island", price: 650, category: "kokteyl", desc: "Vodka, Gin, Tekila, Rom, Cointreau, Kola." },
+            { id: 1202, name: "Sangria", price: 600, category: "kokteyl", desc: "Kırmızı Şarap, Vodka, portakal/şeftali likörü ve meyveler." },
+            { id: 1203, name: "Aperol Spritz", price: 580, category: "kokteyl", desc: "Aperol, Prosecco, Soda." },
+            { id: 1204, name: "Jager Mojito", price: 580, category: "kokteyl", desc: "Jagermeister, lime, nane, şeker, soda." },
+            { id: 1205, name: "Espresso Martini", price: 560, category: "kokteyl", desc: "Vodka, Kahlua, Espresso, Vanilya." },
+            { id: 1206, name: "Margarita", price: 560, category: "kokteyl", desc: "Silver Tekila, Cointreau, Lime (Tuz gerdan ile)." },
+            { id: 1207, name: "Mojito", price: 560, category: "kokteyl", desc: "Rom, lime, nane, şeker, soda." },
+            { id: 1208, name: "Negroni", price: 560, category: "kokteyl", desc: "Campari, Cinzano Rosso, Gin." },
+            { id: 1209, name: "Whisky Sour", price: 560, category: "kokteyl", desc: "Whiskey, citrus blend, simple syrup, foamer." },
+            { id: 1210, name: "Hibi", price: 560, category: "kokteyl", desc: "Captain Morgan Gold, ev yapımı hibiskus şurubu, foamer." },
+            { id: 1211, name: "V2 Passion", price: 580, category: "kokteyl", desc: "Single Malt, Bourbon, Safari, limon, passion püre." },
+            { id: 1212, name: "Gin Berry", price: 540, category: "kokteyl", desc: "Gin, ev yapımı çilek püresi, citrus blend, foamer." },
+            { id: 1213, name: "Hugo Spritz", price: 580, category: "kokteyl", desc: "St Germain, Prosecco, Soda, Lime, Nane." },
+            { id: 1214, name: "Kuzukulağı Sour", price: 540, category: "kokteyl", desc: "Gin, taze kuzu kulağı, citrus blend, foamer." },
+            { id: 1215, name: "Pera", price: 580, category: "kokteyl", desc: "Whiskey, Safari, armut püresi, tarçın, foamer." },
+            { id: 1216, name: "Strawberry Negroni Sour", price: 580, category: "kokteyl", desc: "Campari, Cinzano Rosso, Gin, çilek püresi." },
+            { id: 1217, name: "Chili Passion", price: 580, category: "kokteyl", desc: "Acı biberle demlenmiş vodka, Triple Sec, passion pure." },
+
+            // --- TATLI ---
+            { id: 1301, name: "Dondurmalı Çikolatalı Browni", price: 450, category: "tatli", desc: "Brownie kekleri arasında dondurma ve sos ile." },
+            { id: 1302, name: "Sizzling", price: 450, category: "tatli", desc: "Sıcak servis yapılan cevizli kek, dondurma ve soslar." },
+            { id: 1303, name: "Magnolia (Muzlu-Çilekli)", price: 360, category: "tatli", desc: "Kat kat bisküvi, meyve ve krema katmanları." },
+            { id: 1304, name: "Soslu Sufle", price: 380, category: "tatli", desc: "Sıcak çikolatalı sufle, sos ve 1 top dondurma ile." },
+            { id: 1305, name: "Cheesecake", price: 360, category: "tatli", desc: "Çikolata, çilek veya frambuaz soslu; dondurma ile." },
+            { id: 1306, name: "Kızarmış Dondurma", price: 360, category: "tatli", desc: "Özel hamur kaplamasıyla kızartılmış dışı sıcak içi soğuk tatlı." },
+
+            // --- SICAK İÇECEK ---
+            { id: 1401, name: "Sıcak Çikolata", price: 200, category: "sicakicecek", desc: "Çikolata ve sütle hazırlanan sıcak içecek." },
+            { id: 1402, name: "Sahlep", price: 200, category: "sicakicecek", desc: "Sıcak sütle hazırlanan, tarçınlı klasik içecek." },
+            { id: 1403, name: "Baileys Coffee", price: 390, category: "sicakicecek", desc: "Baileys likörü, espresso ve krema." },
+            { id: 1404, name: "Irish Coffee", price: 440, category: "sicakicecek", desc: "Jameson viski, filtre kahve ve krema." },
+            { id: 1405, name: "Çay", price: 70, category: "sicakicecek", desc: "Demli Türk çayı." },
+            { id: 1406, name: "Kupa Çay", price: 100, category: "sicakicecek", desc: "Kupa boy çay." },
+            { id: 1407, name: "Bitki Çayları (Yeşil, Ihlamur, Kuşburnu vb.)", price: 200, category: "sicakicecek", desc: "Çeşitli bitki çayları." },
+            { id: 1408, name: "Double Espresso", price: 160, category: "sicakicecek", desc: "Yoğun espresso." },
+            { id: 1409, name: "Türk Kahvesi / Double", price: 130, category: "sicakicecek", desc: "Geleneksel Türk kahvesi (Double: 170 TL)." },
+            { id: 1410, name: "Filtre Kahve", price: 180, category: "sicakicecek", desc: "Taze filtre kahve." },
+            { id: 1411, name: "Sütlü Filtre Kahve", price: 190, category: "sicakicecek", desc: "Filtre kahve süt ile." },
+            { id: 1412, name: "Americano", price: 200, category: "sicakicecek", desc: "Sıcak su ile seyreltilmiş espresso." },
+            { id: 1413, name: "Cortado", price: 180, category: "sicakicecek", desc: "Espresso ve az süt." },
+            { id: 1414, name: "Cappuccino", price: 220, category: "sicakicecek", desc: "Espresso, süt ve bol köpük." },
+            { id: 1415, name: "Flat White", price: 230, category: "sicakicecek", desc: "Espresso ve mikro köpüklü süt." },
+            { id: 1416, name: "Latte", price: 220, category: "sicakicecek", desc: "Yumuşak içimli sütlü kahve." },
+            { id: 1417, name: "Aromalı Latte (Karamel, Fındık vb.)", price: 250, category: "sicakicecek", desc: "Şuruplu latte seçenekleri." },
+            { id: 1418, name: "Mocha / White Mocha", price: 250, category: "sicakicecek", desc: "Çikolatalı kahve keyfi." },
+            { id: 1419, name: "Affogato", price: 300, category: "sicakicecek", desc: "Kesme dondurma üzerine espresso ve karamel sos." },
+
+            // --- SOĞUK İÇECEK ---
+            { id: 1501, name: "Alkolsüz Mojito", price: 300, category: "sogukicecek", desc: "Lime ve taze nane ile ferahlatıcı." },
+            { id: 1502, name: "Sunset Spritz", price: 300, category: "sogukicecek", desc: "Narenciye ve nar içerikli tatlı-ekşi." },
+            { id: 1503, name: "Golden Passion", price: 300, category: "sogukicecek", desc: "Tropik meyve içerikli." },
+            { id: 1504, name: "Silky Strawberry", price: 300, category: "sogukicecek", desc: "Çilek aromalı tatlı içecek." },
+            { id: 1505, name: "Limonata / Naneli / Çilekli", price: 200, category: "sogukicecek", desc: "Ev yapımı limonata çeşitleri (Naneli: 210, Çilekli: 220 TL)." },
+            { id: 1506, name: "Sıkma Portakal Suyu", price: 220, category: "sogukicecek", desc: "Taze sıkılmış portakal." },
+            { id: 1507, name: "Milkshake (Çeşitleri)", price: 280, category: "sogukicecek", desc: "Çilek, çikolata, vanilya, muz, cookie, böğürtlen." },
+            { id: 1508, name: "Su / Soda", price: 60, category: "sogukicecek", desc: "Pet su (Soda: 70 TL)." },
+            { id: 1509, name: "Churchill", price: 85, category: "sogukicecek", desc: "Sıkma limon, tuz, soda." },
+            { id: 1510, name: "Ayran / Otlu Ayran", price: 80, category: "sogukicecek", desc: "Yayık ayranı (Otlu naneli ayran: 90 TL)." },
+            { id: 1511, name: "Pepsi / Pepsi Max / Fruko / Yedigün", price: 120, category: "sogukicecek", desc: "Kutu gazlı içecekler." },
+            { id: 1512, name: "Lipton Ice Tea (Çeşitleri)", price: 120, category: "sogukicecek", desc: "Şeftali, limon, mango." },
+            { id: 1513, name: "Meyve Suyu", price: 120, category: "sogukicecek", desc: "Vişne, şeftali, karışık." },
+            { id: 1514, name: "Red Bull", price: 200, category: "sogukicecek", desc: "Enerji içeceği." },
+            { id: 1515, name: "Iced Americano / Latte / Mocha", price: 210, category: "sogukicecek", desc: "Soğuk kahve çeşitleri (Latte: 230, Mocha: 260 TL)." },
+            { id: 1516, name: "Ice Cookie Frappe", price: 260, category: "sogukicecek", desc: "Buzlu frappe çeşidi." },
+            { id: 1517, name: "Soğuk Filtre Kahve / Sütlü", price: 220, category: "sogukicecek", desc: "Buzlu filtre kahve (Sütlü: 240 TL)." },
+
+            // --- ŞARAP ---
+            { id: 1601, name: "Cielo Pinot Grigio Beyaz", price: 440, category: "sarap", desc: "Beyaz şarap seçeneği (Başlayan fiyat)." },
+            { id: 1602, name: "Terra Narince", price: 420, category: "sarap", desc: "Türk beyaz şarabı (Başlayan fiyat)." },
+            { id: 1603, name: "Buzbağ Emir-Narince", price: 400, category: "sarap", desc: "Yerli üretim beyaz şarap (Başlayan fiyat)." },
+            { id: 1604, name: "Terra Öküzgözü", price: 420, category: "sarap", desc: "Kırmızı şarap (Başlayan fiyat)." },
+            { id: 1605, name: "Terra Boğazkere", price: 420, category: "sarap", desc: "Kırmızı şarap (Başlayan fiyat)." },
+            { id: 1606, name: "Terra Shiraz", price: 420, category: "sarap", desc: "Kırmızı şarap (Başlayan fiyat)." },
+            { id: 1607, name: "Cielo Pinot Grigio Rose", price: 440, category: "sarap", desc: "Rose şarap (Başlayan fiyat)." },
+            { id: 1608, name: "Leona Blush", price: 420, category: "sarap", desc: "Blush şarap (Başlayan fiyat)." },
+
+            // --- ALKOLLÜ İÇECEKLER ---
+            { id: 1701, name: "Gordon's Gin", price: 370, category: "alkolluicecek", desc: "Gin (Başlayan fiyat)." },
+            { id: 1702, name: "Beefeater (Tek)", price: 390, category: "alkolluicecek", desc: "Gin tek porsiyon." },
+            { id: 1703, name: "Beefeater (Duble)", price: 580, category: "alkolluicecek", desc: "Gin duble porsiyon." },
+            { id: 1704, name: "Tanqueray No Ten (Tek)", price: 440, category: "alkolluicecek", desc: "Gin tek porsiyon." },
+            { id: 1705, name: "Tanqueray No Ten (Duble)", price: 640, category: "alkolluicecek", desc: "Gin duble porsiyon." },
+            { id: 1706, name: "Jagermeister Shot", price: 260, category: "alkolluicecek", desc: "Likör shot." },
+            { id: 1707, name: "Baileys", price: 360, category: "alkolluicecek", desc: "Kremalı likör." },
+            { id: 1708, name: "Malibu", price: 360, category: "alkolluicecek", desc: "Hindistan cevizli likör." },
+            { id: 1709, name: "Kahlua", price: 360, category: "alkolluicecek", desc: "Kahve likörü." },
+            { id: 1710, name: "Cardinal Melon", price: 360, category: "alkolluicecek", desc: "Kavun likörü." },
+            { id: 1711, name: "Safari", price: 360, category: "alkolluicecek", desc: "Tropikal meyve likörü." },
+            { id: 1712, name: "Archers", price: 360, category: "alkolluicecek", desc: "Şeftali likörü." },
+            { id: 1713, name: "Captain Morgan White", price: 400, category: "alkolluicecek", desc: "Beyaz rom." },
+            { id: 1714, name: "Captain Morgan Gold", price: 400, category: "alkolluicecek", desc: "Altın rom." },
+            { id: 1715, name: "Havana Club", price: 410, category: "alkolluicecek", desc: "Rom." },
+            { id: 1716, name: "Bacardi", price: 430, category: "alkolluicecek", desc: "Rom." },
+            { id: 1717, name: "Jose Cuervo Silver", price: 250, category: "alkolluicecek", desc: "Tekila." },
+            { id: 1718, name: "Jose Cuervo Gold", price: 260, category: "alkolluicecek", desc: "Tekila." },
+            { id: 1719, name: "Espolon Silver", price: 300, category: "alkolluicecek", desc: "Tekila." },
+            { id: 1720, name: "Espolon Reposado", price: 310, category: "alkolluicecek", desc: "Tekila." },
+            { id: 1721, name: "Olmeca Silver", price: 250, category: "alkolluicecek", desc: "Tekila." },
+            { id: 1722, name: "Jack Daniel's (Tek)", price: 440, category: "alkolluicecek", desc: "Viski tek porsiyon." },
+            { id: 1723, name: "Jack Daniel's (Duble)", price: 640, category: "alkolluicecek", desc: "Viski duble porsiyon." },
+            { id: 1724, name: "Jameson (Tek)", price: 420, category: "alkolluicecek", desc: "Viski tek porsiyon." },
+            { id: 1725, name: "Jameson (Duble)", price: 620, category: "alkolluicecek", desc: "Viski duble porsiyon." },
+            { id: 1726, name: "Chivas Regal 12 (Tek)", price: 440, category: "alkolluicecek", desc: "Viski tek porsiyon." },
+            { id: 1727, name: "Chivas Regal 12 (Duble)", price: 640, category: "alkolluicecek", desc: "Viski duble porsiyon." },
+            { id: 1728, name: "Jw Black Label (Tek)", price: 440, category: "alkolluicecek", desc: "Viski tek porsiyon." },
+            { id: 1729, name: "Jw Black Label (Duble)", price: 640, category: "alkolluicecek", desc: "Viski duble porsiyon." },
+            { id: 1730, name: "Glengrant", price: 480, category: "alkolluicecek", desc: "Single malt viski (Başlayan fiyat)." },
+            { id: 1731, name: "Smirnoff (Tek)", price: 380, category: "alkolluicecek", desc: "Votka tek porsiyon." },
+            { id: 1732, name: "Smirnoff (Duble)", price: 550, category: "alkolluicecek", desc: "Votka duble porsiyon." },
+            { id: 1733, name: "Absolut (Tek)", price: 400, category: "alkolluicecek", desc: "Votka tek porsiyon." },
+            { id: 1734, name: "Absolut (Duble)", price: 580, category: "alkolluicecek", desc: "Votka duble porsiyon." },
+            { id: 1735, name: "Finlandia (Tek)", price: 380, category: "alkolluicecek", desc: "Votka tek porsiyon." },
+            { id: 1736, name: "Finlandia (Duble)", price: 550, category: "alkolluicecek", desc: "Votka duble porsiyon." }
+        ];
+
+        let cart = [];
+
+        function renderProducts(category = 'all') {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
+
+            const filtered = category === 'all' ? products : products.filter(p => p.category === category);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-white p-4 rounded-2xl shadow-sm border border-gray-200 flex flex-col justify-between hover:shadow-md hover:border-indigo-300 cursor-pointer transition active:scale-95";
+                card.onclick = () => addToCart(p);
+                card.innerHTML = `
+                    <div>
+                        <div class="font-bold text-gray-800 text-base mb-1">${p.name}</div>
+                        <div class="text-xs text-gray-500 mb-3">${p.desc}</div>
+                    </div>
+                    <div class="text-indigo-600 font-extrabold text-lg">${p.price} TL</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(category, btnElement) {
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-4 py-2 bg-gray-100 text-gray-700 rounded-xl text-sm font-semibold whitespace-nowrap hover:bg-gray-200 transition";
+            });
+            btnElement.className = "cat-btn px-4 py-2 bg-indigo-600 text-white rounded-xl text-sm font-semibold whitespace-nowrap shadow-sm transition";
+            renderProducts(category);
+        }
+
+        function addToCart(product) {
+            const existing = cart.find(item => item.id === product.id);
+            if (existing) {
+                existing.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartUI();
+        }
+
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => i.id === id);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== id);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const list = document.getElementById('cart-list');
+            const itemCount = document.getElementById('item-count');
+            const cartTotal = document.getElementById('cart-total');
+            
+            list.innerHTML = '';
+            if (cart.length === 0) {
+                list.innerHTML = '<p class="text-gray-400 text-center py-10">Henüz ürün seçilmedi.</p>';
+                itemCount.innerText = '0 Ürün';
+                cartTotal.innerText = '0.00 TL';
+                return;
+            }
+
+            let total = 0;
+            let totalCount = 0;
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                totalCount += item.quantity;
+
+                const row = document.createElement('div');
+                row.className = "flex justify-between items-center pt-3 first:pt-0";
+                row.innerHTML = `
+                    <div>
+                        <div class="font-bold text-gray-800 text-sm">${item.name}</div>
+                        <div class="text-xs text-gray-500">${item.price} TL x ${item.quantity}</div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="changeQuantity('${item.id}', -1)" class="w-8 h-8 bg-red-50 text-red-600 rounded-xl font-bold flex items-center justify-center hover:bg-red-100 transition">-</button>
+                        <span class="text-sm font-bold w-6 text-center">${item.quantity}</span>
+                        <button onclick="changeQuantity('${item.id}', 1)" class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-xl font-bold flex items-center justify-center hover:bg-indigo-100 transition">+</button>
+                    </div>
+                `;
+                list.appendChild(row);
+            });
+
+            itemCount.innerText = `${totalCount} Ürün`;
+            cartTotal.innerText = `${total.toFixed(2)} TL`;
+        }
+
+        // Hızlı Ekle Modalı Fonksiyonları
+        function openQuickAddModal() {
+            document.getElementById('quick-add-modal').classList.remove('hidden');
+            document.getElementById('quick-input').value = '';
+            document.getElementById('quick-input').focus();
+        }
+
+        function closeQuickAddModal() {
+            document.getElementById('quick-add-modal').classList.add('hidden');
+        }
+
+        function addQuickItem() {
+            const inputVal = document.getElementById('quick-input').value.trim();
+            if (!inputVal) {
+                alert("Lütfen bir not veya ürün adı girin!");
+                return;
+            }
+
+            const customItem = {
+                id: 'quick_' + Date.now(), // Benzersiz ID
+                name: inputVal,
+                price: 0,
+                desc: 'Hızlı Ekle / Özel Not',
+                category: 'özel'
+            };
+
+            addToCart(customItem);
+            closeQuickAddModal();
+        }
+
+        function sendOrder() {
+            if (cart.length === 0) {
+                alert("Lütfen önce sepete ürün ekleyin!");
+                return;
+            }
+            alert("Sipariş başarıyla mutfağa gönderildi!");
+            cart = [];
+            updateCartUI();
+        }
+
+        renderProducts();
+    </script>
+</body>
+</html>
+
+```
+
+---
