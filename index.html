@@ -7,53 +7,96 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 h-screen flex flex-col md:flex-row overflow-hidden font-sans">
+<body class="bg-gray-100 min-h-screen flex flex-col md:flex-row overflow-x-hidden font-sans">
 
-    <!-- SOL PANEL: Sipariş Özeti ve Sepet -->
-    <div class="w-full md:w-1/3 bg-white border-r border-gray-200 flex flex-col h-1/2 md:h-full shadow-lg z-10">
+    <!-- SOL PANEL: Masa ve Sipariş Özeti -->
+    <div class="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col shadow-lg shrink-0">
         <div class="bg-indigo-600 text-white p-4 font-bold text-lg flex justify-between items-center shadow-md">
             <span>Sipariş Özeti</span>
             <span id="item-count" class="bg-indigo-800 text-xs px-2.5 py-1 rounded-full">0 Ürün</span>
         </div>
 
-        <!-- MASA SEÇİM ALANI -->
-        <div class="bg-indigo-50 border-b border-indigo-100 p-3 flex items-center justify-between">
-            <span class="text-xs font-bold text-indigo-900 uppercase">Seçilen Masa:</span>
-            <select id="table-select" class="bg-white border border-indigo-300 text-indigo-900 font-bold text-sm rounded-xl px-3 py-1.5 focus:outline-none focus:border-indigo-600 shadow-sm">
-                <option value="">-- Masa Seçiniz --</option>
-                <option value="Masa 1">Masa 1</option>
-                <option value="Masa 2">Masa 2</option>
-                <option value="Masa 3">Masa 3</option>
-                <option value="Masa 4">Masa 4</option>
-                <option value="Masa 5">Masa 5</option>
-                <option value="Masa 6">Masa 6</option>
-                <option value="Masa 7">Masa 7</option>
-                <option value="Masa 8">Masa 8</option>
-                <option value="Masa 9">Masa 9</option>
-                <option value="Masa 10">Masa 10</option>
-                <option value="Bahçe 1">Bahçe 1</option>
-                <option value="Bahçe 2">Bahçe 2</option>
-                <option value="Teras 1">Teras 1</option>
-                <option value="VIP 1">VIP 1</option>
+        <!-- MASA SEÇİM ALANI (Bölümlere Ayrılmış) -->
+        <div class="bg-indigo-50 border-b border-indigo-100 p-3 space-y-1">
+            <span class="text-xs font-bold text-indigo-900 uppercase block">Masa Seçimi:</span>
+            <select id="table-select" class="w-full bg-white border border-indigo-300 text-indigo-900 font-bold text-sm rounded-xl px-3 py-2 focus:outline-none focus:border-indigo-600 shadow-sm">
+                <option value="">-- Bölüm ve Masa Seçiniz --</option>
+                <optgroup label="Giriş">
+                    <option value="Giriş 1">Giriş 1</option>
+                    <option value="Giriş 2">Giriş 2</option>
+                    <option value="Giriş 3">Giriş 3</option>
+                    <option value="Giriş 4">Giriş 4</option>
+                    <option value="Giriş 5">Giriş 5</option>
+                    <option value="Giriş 6">Giriş 6</option>
+                    <option value="Giriş 7">Giriş 7</option>
+                    <option value="Giriş 8">Giriş 8</option>
+                    <option value="Giriş 9">Giriş 9</option>
+                    <option value="Giriş 10">Giriş 10</option>
+                </optgroup>
+                <optgroup label="Bahçe">
+                    <option value="Bahçe 1">Bahçe 1</option>
+                    <option value="Bahçe 2">Bahçe 2</option>
+                    <option value="Bahçe 3">Bahçe 3</option>
+                    <option value="Bahçe 4">Bahçe 4</option>
+                    <option value="Bahçe 5">Bahçe 5</option>
+                    <option value="Bahçe 6">Bahçe 6</option>
+                    <option value="Bahçe 7">Bahçe 7</option>
+                    <option value="Bahçe 8">Bahçe 8</option>
+                    <option value="Bahçe 9">Bahçe 9</option>
+                    <option value="Bahçe 10">Bahçe 10</option>
+                </optgroup>
+                <optgroup label="Salon">
+                    <option value="Salon 1">Salon 1</option>
+                    <option value="Salon 2">Salon 2</option>
+                    <option value="Salon 3">Salon 3</option>
+                    <option value="Salon 4">Salon 4</option>
+                    <option value="Salon 5">Salon 5</option>
+                    <option value="Salon 6">Salon 6</option>
+                    <option value="Salon 7">Salon 7</option>
+                </optgroup>
+                <optgroup label="Oyun Salonu">
+                    <option value="Oyun Salonu 1">Oyun Salonu 1</option>
+                    <option value="Oyun Salonu 2">Oyun Salonu 2</option>
+                    <option value="Oyun Salonu 3">Oyun Salonu 3</option>
+                    <option value="Oyun Salonu 4">Oyun Salonu 4</option>
+                    <option value="Oyun Salonu 5">Oyun Salonu 5</option>
+                    <option value="Oyun Salonu 6">Oyun Salonu 6</option>
+                    <option value="Oyun Salonu 7">Oyun Salonu 7</option>
+                    <option value="Oyun Salonu 8">Oyun Salonu 8</option>
+                    <option value="Oyun Salonu 9">Oyun Salonu 9</option>
+                    <option value="Oyun Salonu 10">Oyun Salonu 10</option>
+                    <option value="Oyun Salonu 11">Oyun Salonu 11</option>
+                    <option value="Oyun Salonu 12">Oyun Salonu 12</option>
+                    <option value="Oyun Salonu 13">Oyun Salonu 13</option>
+                    <option value="Oyun Salonu 14">Oyun Salonu 14</option>
+                    <option value="Oyun Salonu 15">Oyun Salonu 15</option>
+                    <option value="Oyun Salonu 16">Oyun Salonu 16</option>
+                    <option value="Oyun Salonu 17">Oyun Salonu 17</option>
+                    <option value="Oyun Salonu 18">Oyun Salonu 18</option>
+                    <option value="Oyun Salonu 19">Oyun Salonu 19</option>
+                    <option value="Oyun Salonu 20">Oyun Salonu 20</option>
+                    <option value="Oyun Salonu 21">Oyun Salonu 21</option>
+                    <option value="Oyun Salonu 22">Oyun Salonu 22</option>
+                </optgroup>
             </select>
         </div>
         
         <!-- Seçilen Ürünler Listesi -->
-        <div id="cart-list" class="flex-1 overflow-y-auto p-4 space-y-3 divide-y divide-gray-100">
-            <p class="text-gray-400 text-center py-10">Henüz ürün seçilmedi.</p>
+        <div id="cart-list" class="flex-1 max-h-48 md:max-h-none overflow-y-auto p-3 space-y-2 divide-y divide-gray-100">
+            <p class="text-gray-400 text-center py-6 text-sm">Henüz ürün seçilmedi.</p>
         </div>
 
-        <!-- Alt Toplam, Mutfağa Gönder ve Hızlı Ekle Butonları Yan Yana -->
-        <div class="p-4 border-t border-gray-200 bg-gray-50 shadow-inner">
-            <div class="flex justify-between items-center mb-3 text-lg font-bold">
+        <!-- Alt Toplam, Mutfağa Gönder ve Hızlı Ekle Butonları -->
+        <div class="p-3 border-t border-gray-200 bg-gray-50 shadow-inner">
+            <div class="flex justify-between items-center mb-2 text-base font-bold">
                 <span class="text-gray-700">Toplam:</span>
                 <span id="cart-total" class="text-indigo-600">0.00 TL</span>
             </div>
             <div class="flex space-x-2">
-                <button onclick="sendOrder()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-3 rounded-xl shadow-lg transition duration-200 active:scale-95 text-sm">
+                <button onclick="sendOrder()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-2 rounded-xl shadow transition duration-200 active:scale-95 text-xs">
                     MUTFAĞA GÖNDER
                 </button>
-                <button onclick="openQuickAddModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-3 px-3 rounded-xl shadow transition duration-200 text-sm flex items-center justify-center space-x-1 active:scale-95">
+                <button onclick="openQuickAddModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2.5 px-2 rounded-xl shadow transition duration-200 text-xs flex items-center justify-center active:scale-95">
                     <span>⚡ Hızlı Ekle</span>
                 </button>
             </div>
@@ -61,10 +104,10 @@
     </div>
 
     <!-- SAĞ / ORTA PANEL: Arama, Kategori Seçici ve Ürünler -->
-    <div class="flex-1 flex flex-col h-1/2 md:h-full bg-gray-50">
+    <div class="flex-1 flex flex-col min-h-screen md:h-screen bg-gray-50">
         
         <!-- ÜST KISIM: Arama Çubuğu ve Kategori Butonu -->
-        <div class="bg-white border-b border-gray-200 p-3 space-y-2 shrink-0 shadow-sm">
+        <div class="bg-white border-b border-gray-200 p-3 space-y-2 shrink-0 shadow-sm sticky top-0 z-20">
             <!-- Arama Kutusu -->
             <div class="relative">
                 <input type="text" id="search-input" oninput="handleSearch()" placeholder="🔍 Ürün ara (Örn: Tost, Burger, Bira...)" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition">
@@ -83,7 +126,7 @@
         </div>
 
         <!-- Ürünler Izgarası (Grid) -->
-        <div id="product-grid" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+        <div id="product-grid" class="flex-1 overflow-y-auto p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 pb-24">
             <!-- Dinamik yüklenecek -->
         </div>
     </div>
@@ -261,14 +304,14 @@
             { id: 1013, name: "Kokoreç Pizza", price: 650, category: "pizza", desc: "Domates sos, mozzarella, kokoreç, acı turşu biber, kimyon." },
 
             // --- BİRA ---
-            { id: 1101, name: "Weihenstephan (30 Cl Fıçı)", price: 285, category: "bira", desc: "Fıçı bira." },
-            { id: 1102, name: "Weihenstephan (50 Cl Fıçı)", price: 350, category: "bira", desc: "Fıçı bira." },
-            { id: 1103, name: "Blanc (25 Cl Fıçı)", price: 220, category: "bira", desc: "Fıçı bira." },
-            { id: 1104, name: "Blanc (50 Cl Fıçı)", price: 310, category: "bira", desc: "Fıçı bira." },
-            { id: 1105, name: "Carlsberg (30 Cl Fıçı)", price: 230, category: "bira", desc: "Fıçı bira." },
-            { id: 1106, name: "Carlsberg (50 Cl Fıçı)", price: 285, category: "bira", desc: "Fıçı bira." },
-            { id: 1107, name: "Tuborg Gold (30 Cl Fıçı)", price: 220, category: "bira", desc: "Fıçı bira." },
-            { id: 1108, name: "Tuborg Gold (50 Cl Fıçı)", price: 275, category: "bira", desc: "Fıçı bira." },
+            { id: 1101, name: "Weihenstephan 30 Cl Fıçı", price: 285, category: "bira", desc: "Fıçı bira." },
+            { id: 1102, name: "Weihenstephan 50 Cl Fıçı", price: 350, category: "bira", desc: "Fıçı bira." },
+            { id: 1103, name: "Blanc 25 Cl Fıçı", price: 220, category: "bira", desc: "Fıçı bira." },
+            { id: 1104, name: "Blanc 50 Cl Fıçı", price: 310, category: "bira", desc: "Fıçı bira." },
+            { id: 1105, name: "Carlsberg 30 Cl Fıçı", price: 230, category: "bira", desc: "Fıçı bira." },
+            { id: 1106, name: "Carlsberg 50 Cl Fıçı", price: 285, category: "bira", desc: "Fıçı bira." },
+            { id: 1107, name: "Tuborg Gold 30 Cl Fıçı", price: 220, category: "bira", desc: "Fıçı bira." },
+            { id: 1108, name: "Tuborg Gold 50 Cl Fıçı", price: 275, category: "bira", desc: "Fıçı bira." },
             { id: 1109, name: "Tuborg Şişe", price: 275, category: "bira", desc: "Şişe seçenekleriyle." },
             { id: 1110, name: "Carlsberg Şişe", price: 285, category: "bira", desc: "Şişe seçenekleriyle." },
             { id: 1111, name: "Frederik Serisi", price: 310, category: "bira", desc: "Özel seri şişe bira." },
@@ -296,63 +339,97 @@
             // --- TATLI ---
             { id: 1301, name: "Dondurmalı Çikolatalı Browni", price: 450, category: "tatli", desc: "Brownie kekleri arasında dondurma ve sos ile." },
             { id: 1302, name: "Sizzling", price: 450, category: "tatli", desc: "Sıcak servis yapılan cevizli kek, dondurma ve soslar." },
-            { id: 1303, name: "Magnolia (Muzlu-Çilekli)", price: 360, category: "tatli", desc: "Kat kat bisküvi, meyve ve krema katmanları." },
-            { id: 1304, name: "Soslu Sufle", price: 380, category: "tatli", desc: "Sıcak çikolatalı sufle, sos ve 1 top dondurma ile." },
-            { id: 1305, name: "Cheesecake", price: 360, category: "tatli", desc: "Çikolata, çilek veya frambuaz soslu; dondurma ile." },
-            { id: 1306, name: "Kızarmış Dondurma", price: 360, category: "tatli", desc: "Özel hamur kaplamasıyla kızartılmış dışı sıcak içi soğuk tatlı." },
+            { id: 1303, name: "Magnolia (Muzlu)", price: 360, category: "tatli", desc: "Kat kat bisküvi, muz parçaları ve krema katmanları." },
+            { id: 1304, name: "Magnolia (Çilekli)", price: 360, category: "tatli", desc: "Kat kat bisküvi, çilek parçaları ve krema katmanları." },
+            { id: 1305, name: "Soslu Sufle", price: 380, category: "tatli", desc: "Sıcak çikolatalı sufle, sos ve 1 top dondurma ile." },
+            { id: 1306, name: "Cheesecake (Çikolatalı)", price: 360, category: "tatli", desc: "Çikolata soslu yumuşak dokulu cheesecake; yanında dondurma ile." },
+            { id: 1307, name: "Cheesecake (Çilekli)", price: 360, category: "tatli", desc: "Çilek soslu yumuşak dokulu cheesecake; yanında dondurma ile." },
+            { id: 1308, name: "Cheesecake (Frambuazlı)", price: 360, category: "tatli", desc: "Frambuaz soslu yumuşak dokulu cheesecake; yanında dondurma ile." },
+            { id: 1309, name: "Kızarmış Dondurma", price: 360, category: "tatli", desc: "Özel hamur kaplamasıyla kızartılan, dışı sıcak içi soğuk dondurma deneyimi." },
 
             // --- SICAK İÇECEK ---
-            { id: 1401, name: "Sıcak Çikolata", price: 200, category: "sicakicecek", desc: "Çikolata ve sütle hazırlanan sıcak içecek." },
-            { id: 1402, name: "Sahlep", price: 200, category: "sicakicecek", desc: "Sıcak sütle hazırlanan, tarçınlı klasik içecek." },
-            { id: 1403, name: "Baileys Coffee", price: 390, category: "sicakicecek", desc: "Baileys likörü, espresso ve krema." },
-            { id: 1404, name: "Irish Coffee", price: 440, category: "sicakicecek", desc: "Jameson viski, filtre kahve ve krema." },
+            { id: 1401, name: "Sıcak Çikolata", price: 200, category: "sicakicecek", desc: "Çikolata ve sütle hazırlanan tatlı ve sıcak içecek." },
+            { id: 1402, name: "Sahlep", price: 200, category: "sicakicecek", desc: "Sıcak sütle hazırlanan, tarçınla servis edilen klasik Türk içeceği." },
+            { id: 1403, name: "Baileys Coffee", price: 390, category: "sicakicecek", desc: "Baileys likörü, espresso ve krema (sıcak servis)." },
+            { id: 1404, name: "Irish Coffee", price: 440, category: "sicakicecek", desc: "Jameson viski, filtre kahve ve krema (sıcak servis)." },
             { id: 1405, name: "Çay", price: 70, category: "sicakicecek", desc: "Demli Türk çayı." },
             { id: 1406, name: "Kupa Çay", price: 100, category: "sicakicecek", desc: "Kupa boy çay." },
-            { id: 1407, name: "Bitki Çayları (Yeşil, Ihlamur, Kuşburnu vb.)", price: 200, category: "sicakicecek", desc: "Çeşitli bitki çayları." },
-            { id: 1408, name: "Double Espresso", price: 160, category: "sicakicecek", desc: "Yoğun espresso." },
-            { id: 1409, name: "Türk Kahvesi / Double", price: 130, category: "sicakicecek", desc: "Geleneksel Türk kahvesi (Double: 170 TL)." },
-            { id: 1410, name: "Filtre Kahve", price: 180, category: "sicakicecek", desc: "Taze filtre kahve." },
-            { id: 1411, name: "Sütlü Filtre Kahve", price: 190, category: "sicakicecek", desc: "Filtre kahve süt ile." },
-            { id: 1412, name: "Americano", price: 200, category: "sicakicecek", desc: "Sıcak su ile seyreltilmiş espresso." },
-            { id: 1413, name: "Cortado", price: 180, category: "sicakicecek", desc: "Espresso ve az süt." },
-            { id: 1414, name: "Cappuccino", price: 220, category: "sicakicecek", desc: "Espresso, süt ve bol köpük." },
-            { id: 1415, name: "Flat White", price: 230, category: "sicakicecek", desc: "Espresso ve mikro köpüklü süt." },
-            { id: 1416, name: "Latte", price: 220, category: "sicakicecek", desc: "Yumuşak içimli sütlü kahve." },
-            { id: 1417, name: "Aromalı Latte (Karamel, Fındık vb.)", price: 250, category: "sicakicecek", desc: "Şuruplu latte seçenekleri." },
-            { id: 1418, name: "Mocha / White Mocha", price: 250, category: "sicakicecek", desc: "Çikolatalı kahve keyfi." },
-            { id: 1419, name: "Affogato", price: 300, category: "sicakicecek", desc: "Kesme dondurma üzerine espresso ve karamel sos." },
+            { id: 1407, name: "Yeşil Çay", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1408, name: "Ihlamur", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1409, name: "Kuşburnu", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1410, name: "Kış Çayı", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1411, name: "Ada Çayı", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1412, name: "Papatya", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1413, name: "Nane-Limon", price: 200, category: "sicakicecek", desc: "Bitki çayı." },
+            { id: 1414, name: "Double Espresso", price: 160, category: "sicakicecek", desc: "Double espresso." },
+            { id: 1415, name: "Türk Kahvesi", price: 130, category: "sicakicecek", desc: "Geleneksel Türk kahvesi." },
+            { id: 1416, name: "Türk Kahvesi (Double)", price: 170, category: "sicakicecek", desc: "Double Türk kahvesi." },
+            { id: 1417, name: "Filtre Kahve", price: 180, category: "sicakicecek", desc: "Filtre kahve." },
+            { id: 1418, name: "Sütlü Filtre Kahve", price: 190, category: "sicakicecek", desc: "Sütlü filtre kahve." },
+            { id: 1419, name: "Americano", price: 200, category: "sicakicecek", desc: "Americano." },
+            { id: 1420, name: "Cortado", price: 180, category: "sicakicecek", desc: "Cortado." },
+            { id: 1421, name: "Cappuccino", price: 220, category: "sicakicecek", desc: "Cappuccino." },
+            { id: 1422, name: "Flat White", price: 230, category: "sicakicecek", desc: "Flat White." },
+            { id: 1423, name: "Latte", price: 220, category: "sicakicecek", desc: "Caffè Latte." },
+            { id: 1424, name: "Karamel Latte", price: 250, category: "sicakicecek", desc: "Karamel aromalı latte." },
+            { id: 1425, name: "Fındık Latte", price: 250, category: "sicakicecek", desc: "Fındık aromalı latte." },
+            { id: 1426, name: "Cookie Latte", price: 250, category: "sicakicecek", desc: "Cookie aromalı latte." },
+            { id: 1427, name: "Toffee Nut Latte", price: 250, category: "sicakicecek", desc: "Toffee nut aromalı latte." },
+            { id: 1428, name: "Mocha", price: 250, category: "sicakicecek", desc: "Caffè Mocha." },
+            { id: 1429, name: "White Mocha", price: 250, category: "sicakicecek", desc: "White Chocolate Mocha." },
+            { id: 1430, name: "Affogato", price: 300, category: "sicakicecek", desc: "Sade kesme dondurma üzerine espresso shot ve karamel sos." },
 
             // --- SOĞUK İÇECEK ---
-            { id: 1501, name: "Alkolsüz Mojito", price: 300, category: "sogukicecek", desc: "Lime ve taze nane ile ferahlatıcı." },
-            { id: 1502, name: "Sunset Spritz", price: 300, category: "sogukicecek", desc: "Narenciye ve nar içerikli tatlı-ekşi." },
-            { id: 1503, name: "Golden Passion", price: 300, category: "sogukicecek", desc: "Tropik meyve içerikli." },
-            { id: 1504, name: "Silky Strawberry", price: 300, category: "sogukicecek", desc: "Çilek aromalı tatlı içecek." },
-            { id: 1505, name: "Limonata / Naneli / Çilekli", price: 200, category: "sogukicecek", desc: "Ev yapımı limonata çeşitleri (Naneli: 210, Çilekli: 220 TL)." },
-            { id: 1506, name: "Sıkma Portakal Suyu", price: 220, category: "sogukicecek", desc: "Taze sıkılmış portakal." },
-            { id: 1507, name: "Milkshake (Çeşitleri)", price: 280, category: "sogukicecek", desc: "Çilek, çikolata, vanilya, muz, cookie, böğürtlen." },
-            { id: 1508, name: "Su / Soda", price: 60, category: "sogukicecek", desc: "Pet su (Soda: 70 TL)." },
-            { id: 1509, name: "Churchill", price: 85, category: "sogukicecek", desc: "Sıkma limon, tuz, soda." },
-            { id: 1510, name: "Ayran / Otlu Ayran", price: 80, category: "sogukicecek", desc: "Yayık ayranı (Otlu naneli ayran: 90 TL)." },
-            { id: 1511, name: "Pepsi / Pepsi Max / Fruko / Yedigün", price: 120, category: "sogukicecek", desc: "Kutu gazlı içecekler." },
-            { id: 1512, name: "Lipton Ice Tea (Çeşitleri)", price: 120, category: "sogukicecek", desc: "Şeftali, limon, mango." },
-            { id: 1513, name: "Meyve Suyu", price: 120, category: "sogukicecek", desc: "Vişne, şeftali, karışık." },
-            { id: 1514, name: "Red Bull", price: 200, category: "sogukicecek", desc: "Enerji içeceği." },
-            { id: 1515, name: "Iced Americano / Latte / Mocha", price: 210, category: "sogukicecek", desc: "Soğuk kahve çeşitleri (Latte: 230, Mocha: 260 TL)." },
-            { id: 1516, name: "Ice Cookie Frappe", price: 260, category: "sogukicecek", desc: "Buzlu frappe çeşidi." },
-            { id: 1517, name: "Soğuk Filtre Kahve / Sütlü", price: 220, category: "sogukicecek", desc: "Buzlu filtre kahve (Sütlü: 240 TL)." },
+            { id: 1501, name: "Alkolsüz Mojito", price: 300, category: "sogukicecek", desc: "Lime ve taze nane ile ferahlatıcı; tatlı-ekşi." },
+            { id: 1502, name: "Sunset Spritz", price: 300, category: "sogukicecek", desc: "Narenciye ve nar içerikli; tatlı-ekşi." },
+            { id: 1503, name: "Golden Passion", price: 300, category: "sogukicecek", desc: "Tropik meyve içerikli; tatlı-ekşi." },
+            { id: 1504, name: "Silky Strawberry", price: 300, category: "sogukicecek", desc: "Çilek aromalı; tatlı." },
+            { id: 1505, name: "Limonata", price: 200, category: "sogukicecek", desc: "Ev yapımı limonata." },
+            { id: 1506, name: "Limonata Naneli", price: 210, category: "sogukicecek", desc: "Naneli ev yapımı limonata." },
+            { id: 1507, name: "Limonata Çilekli", price: 220, category: "sogukicecek", desc: "Çilekli ev yapımı limonata." },
+            { id: 1508, name: "Sıkma Portakal Suyu", price: 220, category: "sogukicecek", desc: "Taze sıkma portakal suyu." },
+            { id: 1509, name: "Milkshake Çilek", price: 280, category: "sogukicecek", desc: "Çilekli milkshake." },
+            { id: 1510, name: "Milkshake Çikolata", price: 280, category: "sogukicecek", desc: "Çikolatalı milkshake." },
+            { id: 1511, name: "Milkshake Vanilya", price: 280, category: "sogukicecek", desc: "Vanilyalı milkshake." },
+            { id: 1512, name: "Milkshake Muz", price: 280, category: "sogukicecek", desc: "Muzlu milkshake." },
+            { id: 1513, name: "Milkshake Cookie", price: 280, category: "sogukicecek", desc: "Cookie'li milkshake." },
+            { id: 1514, name: "Milkshake Böğürtlen", price: 280, category: "sogukicecek", desc: "Böğürtlenli milkshake." },
+            { id: 1515, name: "Su", price: 60, category: "sogukicecek", desc: "Pet su." },
+            { id: 1516, name: "Soda Sade", price: 70, category: "sogukicecek", desc: "Sade maden suyu." },
+            { id: 1517, name: "Churchill", price: 85, category: "sogukicecek", desc: "Sıkma limon, tuz, soda." },
+            { id: 1518, name: "Ayran", price: 80, category: "sogukicecek", desc: "Ayran." },
+            { id: 1519, name: "Otlu Ayran", price: 90, category: "sogukicecek", desc: "Naneli otlu ayran." },
+            { id: 1520, name: "Pepsi", price: 120, category: "sogukicecek", desc: "Pepsi kutu." },
+            { id: 1521, name: "Pepsi Max", price: 120, category: "sogukicecek", desc: "Pepsi Max kutu." },
+            { id: 1522, name: "Lipton Ice Tea Şeftali", price: 120, category: "sogukicecek", desc: "Şeftalili Ice Tea." },
+            { id: 1523, name: "Lipton Ice Tea Limon", price: 120, category: "sogukicecek", desc: "Limonlu Ice Tea." },
+            { id: 1524, name: "Lipton Ice Tea Mango", price: 120, category: "sogukicecek", desc: "Mangolu Ice Tea." },
+            { id: 1525, name: "Fruko", price: 120, category: "sogukicecek", desc: "Fruko gazoz." },
+            { id: 1526, name: "Yedigün", price: 120, category: "sogukicecek", desc: "Yedigün portakal." },
+            { id: 1527, name: "Meyve Suyu Vişne", price: 120, category: "sogukicecek", desc: "Vişne suyu." },
+            { id: 1528, name: "Meyve Suyu Şeftali", price: 120, category: "sogukicecek", desc: "Şeftali suyu." },
+            { id: 1529, name: "Meyve Suyu Karışık", price: 120, category: "sogukicecek", desc: "Karışık meyve suyu." },
+            { id: 1530, name: "Red Bull", price: 200, category: "sogukicecek", desc: "Red Bull enerji içeceği." },
+            { id: 1531, name: "Iced Americano", price: 210, category: "sogukicecek", desc: "Buzlu Americano." },
+            { id: 1532, name: "Iced Latte", price: 230, category: "sogukicecek", desc: "Buzlu Latte." },
+            { id: 1533, name: "Iced Latte Karamel", price: 260, category: "sogukicecek", desc: "Karamelli buzlu Latte." },
+            { id: 1534, name: "Iced Mocha", price: 260, category: "sogukicecek", desc: "Buzlu Mocha." },
+            { id: 1535, name: "Ice Cookie Frappe", price: 260, category: "sogukicecek", desc: "Cookie frappe." },
+            { id: 1536, name: "Soğuk Filtre Kahve", price: 220, category: "sogukicecek", desc: "Buzlu filtre kahve." },
+            { id: 1537, name: "Soğuk Sütlü Filtre Kahve", price: 240, category: "sogukicecek", desc: "Sütlü buzlu filtre kahve." },
 
             // --- ŞARAP ---
-            { id: 1601, name: "Cielo Pinot Grigio Beyaz", price: 440, category: "sarap", desc: "Beyaz şarap seçeneği (Başlayan fiyat)." },
-            { id: 1602, name: "Terra Narince", price: 420, category: "sarap", desc: "Türk beyaz şarabı (Başlayan fiyat)." },
-            { id: 1603, name: "Buzbağ Emir-Narince", price: 400, category: "sarap", desc: "Yerli üretim beyaz şarap (Başlayan fiyat)." },
-            { id: 1604, name: "Terra Öküzgözü", price: 420, category: "sarap", desc: "Kırmızı şarap (Başlayan fiyat)." },
-            { id: 1605, name: "Terra Boğazkere", price: 420, category: "sarap", desc: "Kırmızı şarap (Başlayan fiyat)." },
-            { id: 1606, name: "Terra Shiraz", price: 420, category: "sarap", desc: "Kırmızı şarap (Başlayan fiyat)." },
-            { id: 1607, name: "Cielo Pinot Grigio Rose", price: 440, category: "sarap", desc: "Rose şarap (Başlayan fiyat)." },
-            { id: 1608, name: "Leona Blush", price: 420, category: "sarap", desc: "Blush şarap (Başlayan fiyat)." },
+            { id: 1601, name: "Cielo Pinot Grigio Beyaz", price: 440, category: "sarap", desc: "Beyaz şarap." },
+            { id: 1602, name: "Terra Narince", price: 420, category: "sarap", desc: "Türk beyaz şarabı." },
+            { id: 1603, name: "Buzbağ Emir-Narince", price: 400, category: "sarap", desc: "Yerli üretim beyaz şarap." },
+            { id: 1604, name: "Terra Öküzgözü", price: 420, category: "sarap", desc: "Kırmızı şarap." },
+            { id: 1605, name: "Terra Boğazkere", price: 420, category: "sarap", desc: "Kırmızı şarap." },
+            { id: 1606, name: "Terra Shiraz", price: 420, category: "sarap", desc: "Kırmızı şarap." },
+            { id: 1607, name: "Cielo Pinot Grigio Rose", price: 440, category: "sarap", desc: "Rose şarap." },
+            { id: 1608, name: "Leona Blush", price: 420, category: "sarap", desc: "Blush şarap." },
 
             // --- ALKOLLÜ İÇECEKLER ---
-            { id: 1701, name: "Gordon's Gin", price: 370, category: "alkolluicecek", desc: "Gin (Başlayan fiyat)." },
+            { id: 1701, name: "Gordon's Gin", price: 370, category: "alkolluicecek", desc: "Gin." },
             { id: 1702, name: "Beefeater (Tek)", price: 390, category: "alkolluicecek", desc: "Gin tek porsiyon." },
             { id: 1703, name: "Beefeater (Duble)", price: 580, category: "alkolluicecek", desc: "Gin duble porsiyon." },
             { id: 1704, name: "Tanqueray No Ten (Tek)", price: 440, category: "alkolluicecek", desc: "Gin tek porsiyon." },
@@ -381,7 +458,7 @@
             { id: 1727, name: "Chivas Regal 12 (Duble)", price: 640, category: "alkolluicecek", desc: "Viski duble porsiyon." },
             { id: 1728, name: "Jw Black Label (Tek)", price: 440, category: "alkolluicecek", desc: "Viski tek porsiyon." },
             { id: 1729, name: "Jw Black Label (Duble)", price: 640, category: "alkolluicecek", desc: "Viski duble porsiyon." },
-            { id: 1730, name: "Glengrant", price: 480, category: "alkolluicecek", desc: "Single malt viski (Başlayan fiyat)." },
+            { id: 1730, name: "Glengrant", price: 480, category: "alkolluicecek", desc: "Single malt viski." },
             { id: 1731, name: "Smirnoff (Tek)", price: 380, category: "alkolluicecek", desc: "Votka tek porsiyon." },
             { id: 1732, name: "Smirnoff (Duble)", price: 550, category: "alkolluicecek", desc: "Votka duble porsiyon." },
             { id: 1733, name: "Absolut (Tek)", price: 400, category: "alkolluicecek", desc: "Votka tek porsiyon." },
@@ -429,7 +506,6 @@
             renderProducts(currentCategory, query);
         }
 
-        // Kategori Modal Fonksiyonları
         function openCategoryModal() {
             document.getElementById('category-modal').classList.remove('hidden');
         }
@@ -507,7 +583,6 @@
             cartTotal.innerText = `${total.toFixed(2)} TL`;
         }
 
-        // Hızlı Ekle Modalı
         function openQuickAddModal() {
             document.getElementById('quick-add-modal').classList.remove('hidden');
             document.getElementById('quick-input').value = '';
@@ -551,7 +626,7 @@
 
             alert(`${selectedTable} için sipariş başarıyla mutfağa gönderildi!`);
             cart = [];
-            document.getElementById('table-select').value = ""; // Masayı sıfırla
+            document.getElementById('table-select').value = "";
             updateCartUI();
         }
 
