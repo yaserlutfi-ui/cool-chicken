@@ -15,7 +15,7 @@
             <span>Sipariş Özeti</span>
             <div class="flex items-center space-x-2">
                 <select id="table-select" class="bg-white text-indigo-900 font-bold text-xs rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-300">
-                    <option value="">Masa Seç</option>
+                    <option value="">Masa Seç (İsteğe Bağlı)</option>
                     <optgroup label="Giriş">
                         <option value="Giriş 1">Giriş 1</option><option value="Giriş 2">Giriş 2</option><option value="Giriş 3">Giriş 3</option><option value="Giriş 4">Giriş 4</option><option value="Giriş 5">Giriş 5</option><option value="Giriş 6">Giriş 6</option><option value="Giriş 7">Giriş 7</option><option value="Giriş 8">Giriş 8</option><option value="Giriş 9">Giriş 9</option><option value="Giriş 10">Giriş 10</option>
                     </optgroup>
@@ -65,16 +65,19 @@
                 </button>
             </div>
 
-            <!-- Arama Çubuğu + Hızlı Ekle Butonu -->
-            <div class="flex space-x-2">
-                <input type="text" id="search-input" onfocus="scrollToSearch()" oninput="handleSearch()" placeholder="🔍 Ürün veya kategori ara (örn: bira, burger)..." class="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition">
-                <button onclick="addSearchAsQuickItem()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-3 py-1.5 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Bulunmadıysa Yazılanı Hızlı Ekle">
+            <!-- Arama Çubuğu + Silme [✖] + Hızlı Ekle [➕] Butonları -->
+            <div class="flex space-x-1.5">
+                <input type="text" id="search-input" onfocus="scrollToSearch()" oninput="handleSearch()" placeholder="🔍 Ürün ara..." class="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition">
+                <button onclick="clearSearch()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-3 py-1.5 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Aramayı Temizle">
+                    ✖
+                </button>
+                <button onclick="addSearchAsQuickItem()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-3 py-1.5 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Yazılanı Hızlı Ekle">
                     ➕
                 </button>
             </div>
         </div>
 
-        <!-- Ürünler Izgarası (Grid) - Sabit Yükseklik ve Kompakt Düzen -->
+        <!-- Ürünler Izgarası (Grid) -->
         <div id="product-grid" class="flex-1 overflow-y-auto p-2.5 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 content-start">
             <!-- Dinamik yüklenecek -->
         </div>
@@ -450,7 +453,7 @@
 
             filtered.forEach(p => {
                 const card = document.createElement('div');
-                // h-20 siniri ve shrink-0 ile butonların boyutu tamamen sabitlendi
+                // h-20 ve shrink-0 ile buton boyutları kesinlikle sabitlendi
                 card.className = "bg-white p-2 rounded-lg shadow-sm border border-gray-200 flex flex-col justify-between hover:shadow-md cursor-pointer transition active:scale-95 h-20 shrink-0";
                 card.onclick = () => addToCart(p);
                 card.innerHTML = `
@@ -466,6 +469,13 @@
         function handleSearch() {
             const query = document.getElementById('search-input').value;
             renderProducts(currentCategory, query);
+        }
+
+        // Arama kutusundaki yazıyı tamamen silen fonksiyon
+        function clearSearch() {
+            document.getElementById('search-input').value = '';
+            renderProducts(currentCategory, '');
+            document.getElementById('search-input').focus();
         }
 
         function scrollToSearch() {
@@ -573,10 +583,9 @@
         }
 
         function sendOrder() {
-            const selectedTable = document.getElementById('table-select').value;
+            let selectedTable = document.getElementById('table-select').value;
             if (!selectedTable) {
-                alert("Lütfen önce siparişin verileceği masa numarasını seçin!");
-                return;
+                selectedTable = "Genel / Belirtilmemiş Masa";
             }
 
             if (cart.length === 0) {
