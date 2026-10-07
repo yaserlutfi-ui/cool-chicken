@@ -38,46 +38,45 @@
             <p class="text-gray-400 text-center py-4 text-xs">Henüz ürün seçilmedi.</p>
         </div>
 
-        <!-- Alt Toplam, Mutfağa Gönder ve Hızlı Ekle Butonları -->
+        <!-- Alt Toplam ve Mutfağa Gönder Butonu -->
         <div class="p-2.5 border-t border-gray-200 bg-gray-50 shadow-inner">
             <div class="flex justify-between items-center mb-2 text-sm font-bold">
                 <span class="text-gray-700">Toplam:</span>
                 <span id="cart-total" class="text-indigo-600">0.00 TL</span>
             </div>
-            <div class="flex space-x-2">
-                <button onclick="sendOrder()" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-2 rounded-xl shadow transition duration-200 active:scale-95 text-xs">
-                    MUTFAĞA GÖNDER
-                </button>
-                <button onclick="openQuickAddModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-2 rounded-xl shadow transition duration-200 text-xs flex items-center justify-center active:scale-95">
-                    <span>⚡ Hızlı Ekle</span>
-                </button>
-            </div>
+            <button onclick="sendOrder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-2 rounded-xl shadow transition duration-200 active:scale-95 text-xs">
+                SİPARİŞİ MUTFAĞA GÖNDER
+            </button>
         </div>
     </div>
 
-    <!-- SAĞ / ORTA PANEL: Arama ve Kompakt Ürün Butonları -->
-    <div class="flex-1 flex flex-col min-h-screen md:h-screen bg-gray-50">
+    <!-- SAĞ / ORTA PANEL: Ürünler ve En Altta Arama + Hızlı Ekle -->
+    <div class="flex-1 flex flex-col min-h-screen md:h-screen bg-gray-50 justify-between">
         
-        <!-- ÜST KISIM: Arama Çubuğu (Klavyeye Duyarlı) -->
-        <div id="search-section" class="bg-white border-b border-gray-200 p-2.5 space-y-1.5 shrink-0 shadow-sm sticky top-0 z-20">
-            <div class="relative">
-                <input type="text" id="search-input" onfocus="scrollToSearch()" oninput="handleSearch()" placeholder="🔍 Hızlı ürün ara (örn: Tost, Burger...)" class="w-full bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition">
+        <!-- ÜST KISIM: Kategoriler Barı -->
+        <div class="bg-white border-b border-gray-200 p-2.5 flex justify-between items-center shrink-0 shadow-sm z-20">
+            <div>
+                <span class="text-[9px] text-gray-400 block uppercase font-semibold">Aktif Kategori</span>
+                <span id="active-category-title" class="font-bold text-gray-800 text-xs">Tüm Ürünler</span>
             </div>
-
-            <div class="flex justify-between items-center px-1">
-                <div>
-                    <span class="text-[9px] text-gray-400 block uppercase font-semibold">Aktif Kategori</span>
-                    <span id="active-category-title" class="font-bold text-gray-800 text-xs">Tüm Ürünler</span>
-                </div>
-                <button onclick="openCategoryModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs shadow transition duration-200 active:scale-95">
-                    📂 Kategoriler
-                </button>
-            </div>
+            <button onclick="openCategoryModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs shadow transition duration-200 active:scale-95">
+                📂 Kategoriler
+            </button>
         </div>
 
-        <!-- Ürünler Izgarası (Grid) - Daha Küçük ve Sıkıştırılmış Butonlar -->
-        <div id="product-grid" class="flex-1 overflow-y-auto p-2.5 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2 pb-24">
+        <!-- Ürünler Izgarası (Grid) - Kompakt Butonlar -->
+        <div id="product-grid" class="flex-1 overflow-y-auto p-2.5 grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-2">
             <!-- Dinamik yüklenecek -->
+        </div>
+
+        <!-- EN ALT KISIM: Sabit Arama Çubuğu + Hızlı Ekle Butonu -->
+        <div id="search-section" class="bg-white border-t border-gray-200 p-2.5 shrink-0 shadow-lg sticky bottom-0 z-30">
+            <div class="flex space-x-2">
+                <input type="text" id="search-input" onfocus="scrollToSearch()" oninput="handleSearch()" placeholder="🔍 Ürün veya kategori ara..." class="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition">
+                <button onclick="addSearchAsQuickItem()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-4 py-2 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Bulunmadıysa Yazılanı Hızlı Ekle">
+                    ➕
+                </button>
+            </div>
         </div>
     </div>
 
@@ -111,21 +110,28 @@
         </div>
     </div>
 
-    <!-- HIZLI EKLE MODAL -->
-    <div id="quick-add-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
-            <h3 class="text-lg font-bold text-gray-800 mb-2">Hızlı Ürün / Not Ekle</h3>
-            <p class="text-xs text-gray-500 mb-4">Menüde olmayan bir istek yazabilirsiniz. Fiyatı otomatik 0 TL olarak eklenecektir.</p>
-            <input type="text" id="quick-input" placeholder="Örn: Acısız olsun / Ekstra Limon" class="w-full border border-gray-300 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-indigo-600 mb-4">
-            <div class="flex space-x-2">
-                <button onclick="closeQuickAddModal()" class="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-2.5 rounded-xl transition">İptal</button>
-                <button onclick="addQuickItem()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl transition">Ekle</button>
-            </div>
-        </div>
-    </div>
-
     <!-- JavaScript Menü Verileri ve Mantığı -->
     <script>
+        const categoryNames = {
+            "gunebaslarken": "güne başlarken kahvaltı çorba",
+            "atistirmalik": "atıştırmalık çerez patates",
+            "little": "little little atıştırmalık sepet",
+            "kizarmistavuk": "kızarmış tavuk sepet kanat",
+            "burger": "burger hamburger",
+            "wrap": "wrap dürüst",
+            "anayemek": "ana yemek tavuk et antrikot köfte",
+            "salata": "salata",
+            "makarna": "makarna spaghetti penne",
+            "pizza": "pizza",
+            "bira": "bira fıçı şişe",
+            "kokteyl": "kokteyl içecek",
+            "tatli": "tatlı dondurma sufle cheesecake",
+            "sicakicecek": "sıcak içecek çay kahve",
+            "sogukicecek": "soğuk içecek limonata milkshake soda",
+            "sarap": "şarap beyaz kırmızı rose blush",
+            "alkolluicecek": "alkollü içecek gin viski votka tekila rom likör"
+        };
+
         const products = [
             // --- GÜNE BAŞLARKEN ---
             { id: 101, name: "Günün Çorbası", price: 220, category: "gunebaslarken", desc: "Çeşitli çorbalar." },
@@ -428,11 +434,17 @@
 
             if (searchQuery.trim() !== '') {
                 const query = searchQuery.toLowerCase();
-                filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.desc.toLowerCase().includes(query));
+                filtered = products.filter(p => {
+                    const matchName = p.name.toLowerCase().includes(query);
+                    const matchDesc = p.desc.toLowerCase().includes(query);
+                    const catKeywords = categoryNames[p.category] || "";
+                    const matchCategory = catKeywords.includes(query);
+                    return matchName || matchDesc || matchCategory;
+                });
             }
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<p class="text-gray-400 text-center col-span-full py-10 text-sm">Ürün bulunamadı.</p>';
+                grid.innerHTML = '<p class="text-gray-400 text-center col-span-full py-10 text-sm">Ürün bulunamadı. Yanındaki [+] butonuna basarak hızlıca ekleyebilirsiniz.</p>';
                 return;
             }
 
@@ -455,11 +467,10 @@
             renderProducts(currentCategory, query);
         }
 
-        // Arama kutusuna tıklandığında ekranı otomatik kaydırarak klavyenin altında kalmasını önler
         function scrollToSearch() {
             const searchSection = document.getElementById('search-section');
             setTimeout(() => {
-                searchSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                searchSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
             }, 300);
         }
 
@@ -540,20 +551,11 @@
             cartTotal.innerText = `${total.toFixed(2)} TL`;
         }
 
-        function openQuickAddModal() {
-            document.getElementById('quick-add-modal').classList.remove('hidden');
-            document.getElementById('quick-input').value = '';
-            document.getElementById('quick-input').focus();
-        }
-
-        function closeQuickAddModal() {
-            document.getElementById('quick-add-modal').classList.add('hidden');
-        }
-
-        function addQuickItem() {
-            const inputVal = document.getElementById('quick-input').value.trim();
+        // Arama çubuğuna yazılan metni 0 TL ile direkt sepete ekleyen Hızlı Ekle fonksiyonu
+        function addSearchAsQuickItem() {
+            const inputVal = document.getElementById('search-input').value.trim();
             if (!inputVal) {
-                alert("Lütfen bir not veya ürün adı girin!");
+                alert("Lütfen önce arama çubuğuna eklenecek ürünü yazın!");
                 return;
             }
 
@@ -566,7 +568,8 @@
             };
 
             addToCart(customItem);
-            closeQuickAddModal();
+            document.getElementById('search-input').value = ''; // Aramayı temizle
+            renderProducts(currentCategory, '');
         }
 
         function sendOrder() {
