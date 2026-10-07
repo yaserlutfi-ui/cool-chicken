@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cool Chicken - Garson Sipariş Terminali</title>
+    <title>Cool Chicken's - Garson Sipariş Terminali</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex flex-col md:flex-row overflow-x-hidden font-sans">
 
-    <!-- SOL PANEL: Masa, Sipariş Özeti ve Butonlar -->
+    <!-- SOL PANEL: Logo, Masa, Sipariş Özeti ve Butonlar -->
     <div class="w-full md:w-80 bg-white border-r border-gray-200 flex flex-col shadow-lg shrink-0">
-        <div class="bg-indigo-600 text-white p-3 font-bold text-base flex justify-between items-center shadow-md">
+        
+        <!-- LOGO VE BAŞLIK ALANI (Siyah / Turuncu Konsept) -->
+        <div class="bg-black text-white p-3 flex items-center space-x-3 shadow-md border-b-4 border-orange-500">
+            <!-- Logonun web uyumlu görsel adresi (İnternet tabanlı ikon olarak entegre edildi) -->
+            <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=100&auto=format&fit=crop&q=80" alt="Logo" class="w-10 h-10 rounded-full object-cover border-2 border-orange-500 shadow">
+            <div>
+                <h1 class="font-black text-base text-orange-500 tracking-wider uppercase">Cool Chicken's</h1>
+                <p class="text-[10px] text-gray-300">Garson Sipariş Terminali</p>
+            </div>
+        </div>
+
+        <!-- SİPARİŞ ÖZETİ BAŞLIĞI -->
+        <div class="bg-orange-600 text-white px-3 py-2 font-bold text-sm flex justify-between items-center">
             <span>Sipariş Özeti</span>
             <div class="flex items-center space-x-2">
-                <select id="table-select" class="bg-white text-indigo-900 font-bold text-xs rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-indigo-300">
+                <select id="table-select" class="bg-white text-black font-bold text-xs rounded-lg px-2 py-1 focus:outline-none focus:ring-1 focus:ring-orange-400">
                     <option value="">Masa Seç (İsteğe Bağlı)</option>
                     <optgroup label="Giriş">
                         <option value="Giriş 1">Giriş 1</option><option value="Giriş 2">Giriş 2</option><option value="Giriş 3">Giriş 3</option><option value="Giriş 4">Giriş 4</option><option value="Giriş 5">Giriş 5</option><option value="Giriş 6">Giriş 6</option><option value="Giriş 7">Giriş 7</option><option value="Giriş 8">Giriş 8</option><option value="Giriş 9">Giriş 9</option><option value="Giriş 10">Giriş 10</option>
@@ -29,7 +41,7 @@
                         <option value="Oyun Salonu 1">Oyun Salonu 1</option><option value="Oyun Salonu 2">Oyun Salonu 2</option><option value="Oyun Salonu 3">Oyun Salonu 3</option><option value="Oyun Salonu 4">Oyun Salonu 4</option><option value="Oyun Salonu 5">Oyun Salonu 5</option><option value="Oyun Salonu 6">Oyun Salonu 6</option><option value="Oyun Salonu 7">Oyun Salonu 7</option><option value="Oyun Salonu 8">Oyun Salonu 8</option><option value="Oyun Salonu 9">Oyun Salonu 9</option><option value="Oyun Salonu 10">Oyun Salonu 10</option><option value="Oyun Salonu 11">Oyun Salonu 11</option><option value="Oyun Salonu 12">Oyun Salonu 12</option><option value="Oyun Salonu 13">Oyun Salonu 13</option><option value="Oyun Salonu 14">Oyun Salonu 14</option><option value="Oyun Salonu 15">Oyun Salonu 15</option><option value="Oyun Salonu 16">Oyun Salonu 16</option><option value="Oyun Salonu 17">Oyun Salonu 17</option><option value="Oyun Salonu 18">Oyun Salonu 18</option><option value="Oyun Salonu 19">Oyun Salonu 19</option><option value="Oyun Salonu 20">Oyun Salonu 20</option><option value="Oyun Salonu 21">Oyun Salonu 21</option><option value="Oyun Salonu 22">Oyun Salonu 22</option>
                     </optgroup>
                 </select>
-                <span id="item-count" class="bg-indigo-800 text-xs px-2 py-0.5 rounded-full">0 Ürün</span>
+                <span id="item-count" class="bg-black text-white text-xs px-2 py-0.5 rounded-full font-bold">0 Ürün</span>
             </div>
         </div>
         
@@ -42,9 +54,9 @@
         <div class="p-2.5 border-t border-gray-200 bg-gray-50 shadow-inner">
             <div class="flex justify-between items-center mb-2 text-sm font-bold">
                 <span class="text-gray-700">Toplam:</span>
-                <span id="cart-total" class="text-indigo-600">0.00 TL</span>
+                <span id="cart-total" class="text-orange-600 font-black">0.00 TL</span>
             </div>
-            <button onclick="sendOrder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-2 rounded-xl shadow transition duration-200 active:scale-95 text-xs">
+            <button onclick="sendOrder()" class="w-full bg-black hover:bg-gray-800 text-white font-bold py-2.5 px-2 rounded-xl shadow transition duration-200 active:scale-95 text-xs border-b-2 border-orange-500">
                 SİPARİŞİ MUTFAĞA GÖNDER
             </button>
         </div>
@@ -60,18 +72,18 @@
                     <span class="text-[9px] text-gray-400 block uppercase font-semibold">Aktif Kategori</span>
                     <span id="active-category-title" class="font-bold text-gray-800 text-xs">Tüm Ürünler</span>
                 </div>
-                <button onclick="openCategoryModal()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs shadow transition duration-200 active:scale-95">
+                <button onclick="openCategoryModal()" class="bg-orange-600 hover:bg-orange-700 text-white font-bold px-2.5 py-1 rounded-lg text-xs shadow transition duration-200 active:scale-95">
                     📂 Kategoriler
                 </button>
             </div>
 
             <!-- Arama Çubuğu + Silme [✖] + Hızlı Ekle [➕] Butonları -->
             <div class="flex space-x-1.5">
-                <input type="text" id="search-input" onfocus="scrollToSearch()" oninput="handleSearch()" placeholder="🔍 Ürün ara..." class="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-white focus:border-indigo-600 transition">
+                <input type="text" id="search-input" onfocus="scrollToSearch()" oninput="handleSearch()" placeholder="🔍 Ürün ara..." class="flex-1 bg-gray-100 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:bg-white focus:border-orange-500 transition">
                 <button onclick="clearSearch()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-3 py-1.5 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Aramayı Temizle">
                     ✖
                 </button>
-                <button onclick="addSearchAsQuickItem()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold px-3 py-1.5 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Yazılanı Hızlı Ekle">
+                <button onclick="addSearchAsQuickItem()" class="bg-orange-500 hover:bg-orange-600 text-white font-bold px-3 py-1.5 rounded-xl text-sm shadow transition duration-200 active:scale-95 flex items-center justify-center" title="Yazılanı Hızlı Ekle">
                     ➕
                 </button>
             </div>
@@ -91,24 +103,24 @@
                 <button onclick="closeCategoryModal()" class="text-gray-400 hover:text-gray-600 font-bold text-lg px-2">&times;</button>
             </div>
             <div class="overflow-y-auto space-y-1.5 flex-1 pr-1 text-sm">
-                <button onclick="selectCategory('all', 'Tüm Ürünler')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Tüm Ürünler</button>
-                <button onclick="selectCategory('gunebaslarken', 'Güne Başlarken')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Güne Başlarken</button>
-                <button onclick="selectCategory('atistirmalik', 'Atıştırmalık')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Atıştırmalık</button>
-                <button onclick="selectCategory('little', 'Little Little')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Little Little</button>
-                <button onclick="selectCategory('kizarmistavuk', 'Kızarmış Tavuk')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Kızarmış Tavuk</button>
-                <button onclick="selectCategory('burger', 'Burger')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Burger</button>
-                <button onclick="selectCategory('wrap', 'Wrap')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Wrap</button>
-                <button onclick="selectCategory('anayemek', 'Ana Yemek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Ana Yemek</button>
-                <button onclick="selectCategory('salata', 'Salata')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Salata</button>
-                <button onclick="selectCategory('makarna', 'Makarna')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Makarna</button>
-                <button onclick="selectCategory('pizza', 'Pizza')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Pizza</button>
-                <button onclick="selectCategory('bira', 'Bira')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Bira</button>
-                <button onclick="selectCategory('kokteyl', 'Kokteyl')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Kokteyl</button>
-                <button onclick="selectCategory('tatli', 'Tatlı')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Tatlı</button>
-                <button onclick="selectCategory('sicakicecek', 'Sıcak İçecek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Sıcak İçecek</button>
-                <button onclick="selectCategory('sogukicecek', 'Soğuk İçecek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Soğuk İçecek</button>
-                <button onclick="selectCategory('sarap', 'Şarap')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Şarap</button>
-                <button onclick="selectCategory('alkolluicecek', 'Alkollü İçecek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-indigo-50 hover:text-indigo-600 rounded-xl font-semibold text-gray-700 transition">Alkollü İçecek</button>
+                <button onclick="selectCategory('all', 'Tüm Ürünler')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Tüm Ürünler</button>
+                <button onclick="selectCategory('gunebaslarken', 'Güne Başlarken')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Güne Başlarken</button>
+                <button onclick="selectCategory('atistirmalik', 'Atıştırmalık')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Atıştırmalık</button>
+                <button onclick="selectCategory('little', 'Little Little')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Little Little</button>
+                <button onclick="selectCategory('kizarmistavuk', 'Kızarmış Tavuk')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Kızarmış Tavuk</button>
+                <button onclick="selectCategory('burger', 'Burger')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Burger</button>
+                <button onclick="selectCategory('wrap', 'Wrap')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Wrap</button>
+                <button onclick="selectCategory('anayemek', 'Ana Yemek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Ana Yemek</button>
+                <button onclick="selectCategory('salata', 'Salata')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Salata</button>
+                <button onclick="selectCategory('makarna', 'Makarna')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Makarna</button>
+                <button onclick="selectCategory('pizza', 'Pizza')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Pizza</button>
+                <button onclick="selectCategory('bira', 'Bira')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Bira</button>
+                <button onclick="selectCategory('kokteyl', 'Kokteyl')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Kokteyl</button>
+                <button onclick="selectCategory('tatli', 'Tatlı')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Tatlı</button>
+                <button onclick="selectCategory('sicakicecek', 'Sıcak İçecek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Sıcak İçecek</button>
+                <button onclick="selectCategory('sogukicecek', 'Soğuk İçecek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Soğuk İçecek</button>
+                <button onclick="selectCategory('sarap', 'Şarap')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Şarap</button>
+                <button onclick="selectCategory('alkolluicecek', 'Alkollü İçecek')" class="w-full text-left px-3 py-2.5 bg-gray-50 hover:bg-orange-50 hover:text-orange-600 rounded-xl font-semibold text-gray-700 transition">Alkollü İçecek</button>
             </div>
         </div>
     </div>
@@ -453,14 +465,13 @@
 
             filtered.forEach(p => {
                 const card = document.createElement('div');
-                // h-20 ve shrink-0 ile buton boyutları kesinlikle sabitlendi
                 card.className = "bg-white p-2 rounded-lg shadow-sm border border-gray-200 flex flex-col justify-between hover:shadow-md cursor-pointer transition active:scale-95 h-20 shrink-0";
                 card.onclick = () => addToCart(p);
                 card.innerHTML = `
                     <div>
                         <div class="font-bold text-gray-800 text-[11px] mb-0.5 line-clamp-2">${p.name}</div>
                     </div>
-                    <div class="text-indigo-600 font-extrabold text-xs mt-1">${p.price} TL</div>
+                    <div class="text-orange-600 font-extrabold text-xs mt-1">${p.price} TL</div>
                 `;
                 grid.appendChild(card);
             });
@@ -471,7 +482,6 @@
             renderProducts(currentCategory, query);
         }
 
-        // Arama kutusundaki yazıyı tamamen silen fonksiyon
         function clearSearch() {
             document.getElementById('search-input').value = '';
             renderProducts(currentCategory, '');
@@ -552,7 +562,7 @@
                     <div class="flex items-center space-x-1">
                         <button onclick="changeQuantity('${item.id}', -1)" class="w-6 h-6 bg-red-50 text-red-600 rounded-md font-bold flex items-center justify-center hover:bg-red-100">-</button>
                         <span class="text-xs font-bold w-4 text-center">${item.quantity}</span>
-                        <button onclick="changeQuantity('${item.id}', 1)" class="w-6 h-6 bg-indigo-50 text-indigo-600 rounded-md font-bold flex items-center justify-center hover:bg-indigo-100">+</button>
+                        <button onclick="changeQuantity('${item.id}', 1)" class="w-6 h-6 bg-orange-50 text-orange-600 rounded-md font-bold flex items-center justify-center hover:bg-orange-100">+</button>
                     </div>
                 `;
                 list.appendChild(row);
